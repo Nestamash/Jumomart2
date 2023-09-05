@@ -1,0 +1,293 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+ $primary-color: hsl(36,100%,50%);
+ $white:white;
+ $black-menu-bars: black;
+ $button-color: hsl(30,92%,54%);
+ $button-hover-color: hsl(30,92%,44%);
+ $border-color: hsla(240, 5%, 41%, 0.2);
+
+ $font-family: 'Poppins', sans-serif;
+ $font-weight-300: 300;
+ $font-weight-400: 400;
+ $font-weight-500: 500;
+ $font-size: 1rem;
+
+ body{
+   font-family: $font-family;
+   font-size: $font-size;
+   font-weight: $font-weight-400;
+ 
+ }
+ .flex{
+   display: flex;
+   justify-content: flex-end;
+   align-items: center;
+   
+ }
+ header{
+    display: grid;
+    grid-template-columns: repeat(5, 20%);
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "top1 top1 top1 top1 top1"
+    "hambuger logo logo acc acc"
+    "search search search search search"
+    "ul ul ul ul ul";
+    border-bottom: 2px solid $border-color;
+   
+ }
+ .top-nav{
+    grid-area: top1;
+    background-color: $primary-color;
+    padding: 0px 10px;
+ }
+ .hambuger-menu{
+    grid-area: hambuger;
+   //  background-color: red;
+    padding: 0px 10px;
+ }
+ .logo{
+    grid-area: logo;
+   //  background-color: aqua;
+    padding: 0px 10px;
+    display: flex;
+    justify-content: center;
+     align-items: center;
+
+ }
+ .account-and-cart-container{
+    grid-area: acc;
+   //  background-color: blue;
+    padding: 0px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+    button{
+      padding: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      outline: none;
+      background-color: $white;
+    }
+    button:hover{
+      color: $primary-color;
+    }
+    select{
+      border: none;
+      outline: none;
+      cursor: pointer;
+     
+      option{
+         border: none;
+         outline: none;
+         
+         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      }
+    }
+    
+ }
+ .cart-wrapper{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   
+   a{
+      text-decoration: none;
+   }
+   a:hover{
+      color: $primary-color;
+   }
+   i{
+      padding-right: 10px;
+   }
+ }
+ .search-bar-wrapper{
+    grid-area: search;
+   //  background-color: chartreuse;
+    padding: 10px 40px;
+
+    input[type=text], button{
+      padding: 5px;
+      border: 2px solid $border-color;
+      outline: none;
+      font-size: 0.8rem;
+      // box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      
+    }
+    input[type=text]{
+      width: 90%;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+    }
+    button{
+      cursor: pointer;
+      width: 10%;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      background-color: $primary-color;
+      text-align: center;
+    }
+    button:hover{
+      background-color: $button-hover-color;
+    }
+
+ }
+ .hambuger-menu{ 
+
+   span{
+display: block;
+width: 28px;
+height: 2px;
+background-color: $black-menu-bars;
+position: relative;
+}
+span::before, span::after{
+   content: '';
+   display: block;
+   position: absolute;
+   width: 28px;
+   height: 2px;
+   background-color: $black-menu-bars;
+   }
+  span::before{
+      top: 5px;
+   }
+   span::after{
+      bottom: 5px;
+   }
+
+   ul{
+      position: absolute;
+      display: none;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 0;
+      height: 100%;
+     
+      // background-color: rgb(27, 173, 166);
+      transition: .5s ease;
+      li{
+         list-style: none;
+         padding: 10px;
+        
+      }
+      .fa-solid{
+      margin-right: 10px;
+      } 
+   }
+   
+}
+
+
+.spans-wrapper{
+   cursor: pointer;
+   width: 30px;
+   height: 30px;
+   // background-color: chartreuse;
+}
+
+// checked checkbox
+.hambuger-menu input[type=checkbox]{
+   display: none;
+}
+.hambuger-menu input:checked ~ ul{
+   top: 0;
+   width: 90%;
+   padding-top: 40px;
+ 
+   display: flex;
+   // justify-content: ;
+   align-items: center;
+   flex-direction: column;
+   background-color: $white;
+   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+  h1{
+   font-size: 1.2rem;
+  } 
+  a{
+      text-decoration: none;
+   }
+   a:hover{
+     color: $primary-color;
+   }
+}
+
+.hambuger-menu input:checked ~ label .spans-wrapper{
+   z-index: 2;
+   position: absolute;
+   top: 0;
+   right: 50px;
+   margin: 10px;
+   width: 30px;
+   
+   
+   // background-color: red;
+}
+
+.hambuger-menu input:checked ~ label span:first-child{ 
+   // transform: translateX(10px);
+   // opacity: 0;
+   background-color: transparent;
+   }
+   .hambuger-menu input:checked ~ label span::before{ 
+     
+      transform: rotate(45deg);
+      transform-origin: right;
+      top: 10px;
+      background-color: $black-menu-bars;
+      }
+      .hambuger-menu input:checked ~ label span::after{
+        
+         transform: rotate(-45deg);
+         transform-origin:right; 
+         top: -10px;
+         background-color: $black-menu-bars;
+         }
+
+         // Desktop & Laptop design
+        
+         @media (min-width:50em){
+            header{
+               grid-template-areas: 
+               "top1 top1 top1 top1 top1"
+               "logo search search acc acc"
+               ;
+            }
+            .spans-wrapper{
+               display: none;
+            }
+            .logo{         
+               justify-content: flex-end;
+               // background-color: red; 
+               
+               img{
+                  width: 70%;
+               }
+             }
+             .search-bar-wrapper{
+               input[type=text], button{
+                  padding: 10px;
+                  border: 1px solid hsl(0, 0%, 60%);
+                  font-size: 1rem;
+               }
+               button{
+                  border-left: none;
+               }
+             }
+             .account-and-cart-container{
+               // background-color: blue;
+               justify-content: flex-start;
+               font-size: 1.5rem;
+             }
+             .top-nav{
+               display: flex;
+               justify-content: center;
+               align-items: center;
+
+             }
+         }
