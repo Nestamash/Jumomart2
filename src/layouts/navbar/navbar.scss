@@ -172,7 +172,7 @@ span::before, span::after{
       right: 0;
       width: 0;
       height: 100%;
-     
+     z-index: 1;
       // background-color: rgb(27, 173, 166);
       transition: .5s ease;
       li{
