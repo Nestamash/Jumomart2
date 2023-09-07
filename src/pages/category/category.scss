@@ -1,17 +1,25 @@
+$button-hover-color: hsl(30,92%,44%);
 section{
-    position: relative;
     display: flex;
-    overflow-x: auto;
+    align-items: center;
     gap: 0.5rem;
     padding: 10px;
-    z-index: -1;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    
+}
+.slider{
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+    scroll-behavior:smooth;
+   
 }
 article{
     flex: 1;
     position: relative;
     min-width: 100px;
     border-radius: 10px; 
+    
 }
 figcaption{
     display: flex;
@@ -41,18 +49,9 @@ article:nth-child(7){
         display: none;
     }
 }
-.btn-previous{
-    display: flex;
-    // justify-content: center;
-    align-items: center;
-    position: absolute;
-    width: 50px;
-    height: 85%;
-    z-index: 1;
-    // background-color: red;
 
-    button{
-        display: flex;
+    .scroll-btn{
+        display: none;
         justify-content: center;
         align-items: center;
         padding: 10px;
@@ -64,12 +63,17 @@ article:nth-child(7){
         color: hsl(0, 0%, 90%);
         background-color: hsl(0, 0%, 20%);
         opacity: 0.8;
+        z-index: 1;
     }
-}
+    .scroll-btn:hover{
+        cursor: pointer;
+        background-color: $button-hover-color;
+    }
+
+
 
 @media (min-width:50em){
     section{
-        // overflow-x: hidden;
         width: 70%;
         margin: 20px auto;
     }
@@ -77,5 +81,10 @@ article:nth-child(7){
         min-width: 150px;
         
     }
-  
+    .slider{
+        overflow-x: hidden;
+    }
+    .scroll-btn{
+        display: flex;
+    }
 }

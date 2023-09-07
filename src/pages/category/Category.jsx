@@ -53,15 +53,16 @@ const Category = () => {
     }
 
   ]
-  const previouseImage = ()=>{
-    console.log('worked')
+  const scrollLeft = ()=>{
+    document.getElementById("slider").scrollLeft -= 900;
+  }
+  const scrollRight = ()=>{
+    document.getElementById("slider").scrollLeft += 900;
   }
   return (
     <section>
-      {/* <div className='btn-previous'>
-      <button onClick={previouseImage} ><i className="fa-solid fa-chevron-left"></i></button>
-      </div> */}
-      
+     <button className='scroll-btn' onClick={scrollLeft} ><i className="fa-solid fa-chevron-left"></i></button>
+      <div className='slider' id='slider'>
       {
         images.map(image=>{
           return(
@@ -76,7 +77,8 @@ const Category = () => {
           );
         })
       }
-      {/* <div className='btn-next'></div> */}
+      </div>
+      <button className='scroll-btn' onClick={scrollRight} ><i className="fa-solid fa-chevron-right"></i></button>
     </section>
   )
 }
