@@ -1,0 +1,87 @@
+main{
+    display: none;
+    justify-content: center;
+    margin-top: 20px;
+    // background-color: red;
+}
+.slideshow{
+    width: 70%;
+    display: grid;
+    grid-template-columns: repeat(5 20%);
+    grid-template-rows: auto;
+    gap: 0.5rem;
+    grid-template-areas: 
+    "nav1 nav1 main main help"
+    "nav1 nav1 main main live";
+    // background-color: aqua;
+}
+.aside-nav{
+    grid-area: nav1;
+    // background-color: rgb(110, 95, 95);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.main-slide-show{
+    grid-area: main;
+    // background-color: rgb(0, 255, 55);
+
+    img{
+        width: 100%;
+    }
+}
+.help-center{
+    grid-area: help;
+    height: 200px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.live-now-gif{
+    grid-area: live;
+    height: 200px;
+    background-color: rgb(242, 255, 0);
+
+    img{
+        width: 100%;
+    }
+}
+.help{
+    display: flex;
+    padding-left: 10px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    // background-color: red;
+
+    img{
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+    }
+    h1{
+        font-size: 1rem;
+        text-transform: uppercase;
+        opacity: 0.5;
+    }
+    p{
+        font-size: 0.8rem;
+        text-transform: capitalize;
+    }
+}
+.help:hover{
+    cursor: pointer;
+}
+.aside-links{
+    display: flex;
+    align-items: center;
+    
+    // background-color: red;
+    i{
+        margin-right: 5px;
+    }
+
+}
+.aside-links:hover{
+    cursor: pointer;
+}
+@media (min-width:50em){
+    main{
+        display: flex;
+    }
+}

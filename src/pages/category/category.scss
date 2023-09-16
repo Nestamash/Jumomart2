@@ -4,12 +4,12 @@ section{
     align-items: center;
     gap: 0.5rem;
     padding: 10px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;  
 }
 .slider{
     display: flex;
     overflow-x: auto;
+    overflow-y: hidden;
     gap: 1rem;
     scroll-behavior:smooth;
    
@@ -19,8 +19,13 @@ article{
     position: relative;
     min-width: 100px;
     border-radius: 10px; 
-    
+}   
+
+figure a img:hover{
+    transform: scale(1.02);
+   
 }
+
 figcaption{
     display: flex;
     justify-content: center;
@@ -39,6 +44,7 @@ figcaption{
         font-size: 0.7rem;
     }
 }
+
 article:first-child{
     figcaption{
         display: none;

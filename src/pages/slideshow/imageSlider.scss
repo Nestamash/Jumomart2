@@ -1,0 +1,61 @@
+
+  .container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    // background-color: aquamarine;
+  }
+  img{
+    width: 100%;
+    border-radius: 10px;
+  }
+  .buttons{
+    width: 97%;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+  }
+ 
+  .container img:hover{
+    cursor: pointer;
+  }
+.slide-btn{
+    border: none;
+    outline: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding: 5px;
+    color: hsl(0, 0%, 90%);
+    background-color: hsl(0, 0%, 20%);
+    opacity: 0.7;
+  }
+  button:hover{
+    cursor: pointer;
+    background-color: hsl(30,92%,44%);
+    opacity: 0.8;
+  }
+ 
+  .circles{  
+    position: absolute;
+    bottom: 10px;
+    display: flex;
+    gap: 5px;
+    // background-color: red;
+  }
+  .fa-circle{
+    font-size: 0.7rem;
+    cursor: pointer;
+    color: black;
+    opacity: 0.4;
+  }
+  .fa-circle:hover{
+    color: hsl(30, 21%, 79%);
+    
+  }
+.active{
+  color: rgb(255, 255, 255);
+}
+

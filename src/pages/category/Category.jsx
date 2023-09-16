@@ -66,14 +66,18 @@ const Category = () => {
       {
         images.map(image=>{
           return(
+            
                 <article>
                   <figure>
+                  <a href='#'>
                     <img src={image.url} alt={image.alt} />
+                    </a>
                   </figure>
                   <figcaption>
                     <p>{image.text}</p>
                   </figcaption>
                 </article>
+              
           );
         })
       }

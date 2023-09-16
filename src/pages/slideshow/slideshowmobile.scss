@@ -1,0 +1,9 @@
+.mobile-slider{
+    min-width: 250px;
+}
+
+@media (min-width:50em){
+    .slide-mobile-wrapper{
+        display: none;
+    }
+}
