@@ -3,6 +3,11 @@ import NavBar from "./layouts/navbar/NavBar"
 import Category from './pages/category/Category'
 import SlideShow from './pages/slideshow/SlideShow'
 import SlideshowMobile from './pages/slideshow/slideshowMobile'
+import Lastviewed from './pages/lastviewed/Lastviewed'
+import LastSearched from './pages/lastsearched/LastSearched'
+import FlashSale from './pages/flashsale/FlashSale'
+import Footer from './layouts/footer/Footer'
+
 function App() {
   const images = [
     {url:'./images/slideshow/Flashsale.gif'},
@@ -21,6 +26,10 @@ function App() {
      <SlideShow images={images}/>
      <Category />
      <SlideshowMobile images={images}/>
+     <Lastviewed />
+     <LastSearched />
+     <FlashSale />
+     {/* <Footer /> */}
      
     </>
   )
