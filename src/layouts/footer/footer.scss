@@ -1,6 +1,15 @@
 
 footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: white;
     background-color: hsl(240,2%,20%);
     margin-top: auto;
+    padding: 20px;
+
+    img{
+        width: 200px;
+       
+    }
 }

@@ -29,7 +29,7 @@ function App() {
      <Lastviewed />
      <LastSearched />
      <FlashSale />
-     {/* <Footer /> */}
+     <Footer />
      
     </>
   )

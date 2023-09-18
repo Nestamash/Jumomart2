@@ -76,8 +76,7 @@ const Category = () => {
                   <figcaption>
                     <p>{image.text}</p>
                   </figcaption>
-                </article>
-              
+                </article>            
           );
         })
       }

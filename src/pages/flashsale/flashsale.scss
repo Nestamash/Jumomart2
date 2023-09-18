@@ -12,3 +12,31 @@
         color: hsl(27,100%,63%);
     }
 }
+.flashsale-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+#slider1{
+    overflow-x: auto;
+    scroll-behavior:smooth;
+}
+.flashsale-product-wrapper{
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+    // background-color: red;
+
+    .flashsale-card-wrapper{
+        min-width: 130px;
+    }
+}
+
+@media (min-width:50em){
+    #slider1{
+        overflow-x: hidden;
+        
+    }
+}

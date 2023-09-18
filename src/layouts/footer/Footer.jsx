@@ -3,7 +3,7 @@ import './footer.scss'
 const Footer = () => {
   return (
     <footer>
-        <h1>footer</h1>
+        <img src='/logo.jpeg' alt='logo' />
     </footer>
   )
 }
