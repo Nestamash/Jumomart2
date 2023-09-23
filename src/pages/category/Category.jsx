@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 import './category.scss'
 const Category = () => {
 
@@ -69,9 +70,9 @@ const Category = () => {
             
                 <article>
                   <figure>
-                  <a href='#'>
-                    <img src={image.url} alt={image.alt} />
-                    </a>
+                  <NavLink to={'/products-preview'} end >
+                    <img src={image.url} alt={image.alt} /> 
+                    </NavLink>
                   </figure>
                   <figcaption>
                     <p>{image.text}</p>

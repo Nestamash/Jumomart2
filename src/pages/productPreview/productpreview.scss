@@ -1,0 +1,50 @@
+.product-preview{
+    background-color: hsl(30,92%,54%);
+    padding: 10px;
+}
+.product-wrapper{
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior:smooth;
+    a{
+        text-decoration: none;
+        color: black;
+    }
+}
+
+.product-title{
+
+    h1{
+        font-size: 1rem;
+        opacity: 0.7;
+    }
+    h2{
+        font-size: 0.8rem;
+        opacity: 0.6;
+        text-decoration: line-through;
+    }
+}
+.truncate {
+    width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  
+  }
+  .slider-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+  }
+  .card-wrapper:hover{
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  }
+
+  @media (min-width:50em){
+    #slider{
+        overflow-x: hidden;
+    }
+  }

@@ -1,6 +1,14 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom';
 import './navbar.scss'
+import { useSelector } from 'react-redux';
 const NavBar = () => {
+
+   const cartProducts = useSelector(state=>state.cart.cart)
+   const numberOfProductsInCart = cartProducts.reduce((acc, curr)=>{
+    return acc + curr.quantity;
+
+  }, 0)
   return (
     <header>
       <div className='top-nav'>
@@ -28,7 +36,10 @@ const NavBar = () => {
           
       </div>
       <div className='logo'>
-        <img src='./logo.jpeg' alt='logo'/>
+      <NavLink to={'/'} >
+      <img src='./logo.jpeg' alt='logo'/>
+      </NavLink>
+        
       </div>
       <div className='account-and-cart-container'>
       <button>
@@ -42,7 +53,15 @@ const NavBar = () => {
       </button>
       
       <div className='cart-wrapper'>
-      <a href='#'><i className="fa-solid fa-cart-arrow-down"></i></a>
+        
+        <span>
+          <p>{numberOfProductsInCart}</p>
+        </span>
+       
+       
+      <NavLink to={'/cart'} >
+      <i className="fa-solid fa-cart-arrow-down"></i>
+      </NavLink>
       </div>
       </div>
         <form className='search-bar-wrapper'>

@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
  $primary-color: hsl(36,100%,50%);
  $white:white;
+ $white-color: white;
  $black-menu-bars: black;
  $button-color: hsl(30,92%,54%);
  $button-hover-color: hsl(30,92%,44%);
@@ -94,9 +95,30 @@
     
  }
  .cart-wrapper{
+   position: relative;
    display: flex;
    justify-content: center;
    align-items: center;
+   
+      span{
+         position: absolute;
+         top: -10px;
+         right: 0;
+         width: 20px;
+         height: 20px;
+         padding: 5px;
+         color: white;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         border-radius: 50%;
+         background-color: $primary-color;
+
+         p{
+            font-size: 0.8rem;
+         }
+      }
+ 
    
    a{
       text-decoration: none;
@@ -253,6 +275,45 @@ span::before, span::after{
          top: -10px;
          background-color: $black-menu-bars;
          }
+         .cart{
+            position: relative;
+            display: flex;
+            justify-content: center;
+            
+            align-items: center;
+            width: 100px;
+            // background-color: aqua;
+            font-size: 2rem;
+            margin-left: 50px;
+    
+            span{
+                font-size: 1.5rem;
+                margin-left: 10px;
+    
+            }
+        }
+    
+    .cart a:hover{
+        color: $primary-color;
+    }
+    .cart-number-of-items-show{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.8rem;
+        color: $white-color;
+        padding: 5px;
+        position: absolute;
+        top: 2px;
+        left: 50%;
+        right: 50%;
+        transform: translate(-50%, -50%);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: $primary-color;
+    
+    }
 
          // Desktop & Laptop design
         

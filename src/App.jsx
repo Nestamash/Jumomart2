@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import './reset.css'
+import Home from './pages/home/home'
 import NavBar from "./layouts/navbar/NavBar"
 import Category from './pages/category/Category'
 import SlideShow from './pages/slideshow/SlideShow'
@@ -7,30 +9,30 @@ import Lastviewed from './pages/lastviewed/Lastviewed'
 import LastSearched from './pages/lastsearched/LastSearched'
 import FlashSale from './pages/flashsale/FlashSale'
 import Footer from './layouts/footer/Footer'
-
+import ProductPreview from './pages/productPreview/ProductPreview'
+import { Route, Routes } from 'react-router-dom'
+import ProductDetail from './pages/productDetails/ProductDetail'
+import Cart from './pages/cart/Cart'
+import CheckOut from './components/Auth/CheckOut'
+import PaymentPreview from './components/Auth/PaymentPreview'
 function App() {
-  const images = [
-    {url:'./images/slideshow/Flashsale.gif'},
-    {url:'./images/slideshow/fries.jpg'},
-    {url:'./images/slideshow/shirtssale.jpg'},
-    {url:'./images/slideshow/cockjameson.jpg'},
-    {url:'./images/slideshow/Adidas.png'},
-    {url:'./images/slideshow/BrandLovers.jpg'},
-    {url:'./images/slideshow/SHome.jpg'}
-    
-]
-  
+  const [id, setID] = useState(null)
+  const handleID = (data)=>{
+    setID(data.id)
+  }
   return (
     <>
-     <NavBar />
-     <SlideShow images={images}/>
-     <Category />
-     <SlideshowMobile images={images}/>
-     <Lastviewed />
-     <LastSearched />
-     <FlashSale />
-     <Footer />
-     
+    <Routes>
+    <Route  path='/' element={<Home />}/>
+    <Route  path='/last-searched' element={<LastSearched />}/>
+    <Route  path='/last-viewed' element={<Lastviewed />}/>
+    <Route  path='/last-searched' element={<LastSearched />}/>
+    <Route  path='/products-preview' element={<ProductPreview handleID={handleID}/>}/>
+    <Route  path='/products-detail' element={<ProductDetail productId={id}/>}/>
+    <Route  path='/cart' element={<Cart />}/>
+    <Route  path='/checkout' element={<CheckOut />}/>
+    <Route  path='/payment-preview' element={<PaymentPreview />}/>
+    </Routes>
     </>
   )
 }

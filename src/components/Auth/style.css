@@ -1,0 +1,504 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+/*
+  2. Remove default margin
+*/
+* {
+  margin: 0;
+}
+/*
+  Typographic tweaks!
+  3. Add accessible line-height
+  4. Improve text rendering
+*/
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 1.3rem;
+}
+/*
+  5. Improve media defaults
+*/
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+/*
+  6. Remove built-in form typography styles
+*/
+input, button, textarea, select {
+  font: inherit;
+}
+/*
+  7. Avoid text overflows
+*/
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+/*
+  8. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+body{
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* height: 100vh; */
+}
+
+.container{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.container>h1{
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+.inputs-wrapper{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+input[type=text], input[type=password]{
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 300px;
+}
+.inputs-wrapper>button{
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  margin-top: 10px;
+  color: whitesmoke;
+  background-color: hsl(240, 100%, 50%);
+}
+.inputs-wrapper>button:hover{
+  cursor: pointer;
+  background-color: hsl(240, 100%, 70%);
+}
+.links-wrapper{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 15px;
+}
+.links-wrapper>a{
+  text-decoration: none;
+
+}
+.links-wrapper>a:hover{
+  text-decoration: underline;
+  color: hsl(240, 100%, 70%);
+}
+.check-out-container{
+  width: 70%;
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+  grid-template-rows: auto;
+  gap: 0.5rem;
+  grid-template-areas: 
+    "ad ad ad order"
+    "delivery delivery delivery order"
+    "payment payment payment ."
+    "continue continue . ."
+    ;
+    /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+  /* background-color: blue; */
+}
+.address{
+  grid-area: ad;
+  border-radius: 5px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  /* background-color: red; */
+}
+.delivery-details{
+  grid-area: delivery;
+  border-radius: 5px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; 
+}
+.order-summary{
+  grid-area: order;
+  border-radius: 5px;
+  height: 300px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; 
+  /* background-color: aqua; */
+}
+
+.payment-method{
+  grid-area: payment;
+  border-radius: 5px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; 
+  /* background-color: blueviolet; */
+}
+.go-back-shopping{
+  grid-area: continue;
+  border-radius: 5px;
+}
+.heading{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  border-bottom: 1px solid hwb(0 100% 20%);
+}
+.heading h1{
+text-transform: uppercase;
+font-size: 1rem;
+color: hsl(0, 0%, 30%);
+}
+.heading h1 .fa-circle-check{
+  color: hsl(182,100%,40%);
+}
+.heading a{
+  color: hsl(216, 73%, 28%);
+  font-size: 1rem;
+}
+.heading a:hover{
+  color: hsl(216, 73%, 58%);;
+}
+.fa-circle-check{
+  padding-right: 5px;
+  /* background-color: antiquewhite; */
+}
+.fa-chevron-right{
+  font-size: 0.8rem;
+  padding-left: 10px;
+}
+
+.checkout-name{
+  padding: 15px;
+}
+.checkout-name h1{
+  color: hsl(0, 0%, 20%);
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+.checkout-name p{
+  font-size: 1rem;
+  color: hsl(0, 0%, 30%);
+}
+.checkout-name span{
+  font-size: 1rem;
+  color: hsl(0, 0%, 30%);
+  border-right: 2px solid hsl(0, 0%, 50%);
+  padding: 0 5px;
+  
+}
+.checkout-name span:last-child{
+  border: none;
+}
+.pick-up-station{
+  margin: 0 20px;
+  border: 1px solid hsl(0, 0%, 67%);
+}
+.heading-shipment{
+  font-size: 1rem;
+  margin: 30px 20px 0px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+.heading-shipment h1{
+  color: hsl(0, 0%, 30%);
+}
+.heading-shipment .fa-handshake{
+  padding-left: 10px;
+  color: hsl(182,100%,40%);
+}
+.shipment-products{
+  margin-right: 20px;
+  margin-left: 20px;
+  border: 1px solid hsl(0, 0%, 67%);
+}
+.shipment-products h1, p{
+  padding-left: 10px;
+  font-size: 1rem;
+  color: hsl(0, 0%, 30%);
+}
+.shipment-items{
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  padding: 20px;
+  border-top: 1px solid hsl(0, 0%, 80%);
+  gap: 1rem;
+
+}
+.shipment-items picture{
+  display: flex;
+  gap: 0.5rem;
+}
+.shipment-items picture span, p{
+ font-size: 0.8rem;
+}
+.shipment-items img{
+  width: 50px;
+}
+.modify-cart{
+  text-transform: uppercase;
+  text-align: center;
+  margin: 20px;
+ 
+  /* background-color: red; */
+}
+.modify-cart a{
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 1rem;
+  color: hsl(27,100%,63%);
+  transition: all 300ms ease-in-out;
+}
+.modify-cart a:hover{
+  font-size: 1rem;
+  background-color: hsl(27,100%,83%);
+}
+.payment-p{
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+  margin: 10px;
+}
+.go-back-shopping a{
+  font-size: 1rem;
+  /* color: hsl(27,100%,83%); */
+}
+.go-back-shopping a i{
+  font-size: 0.8rem;
+  padding-right: 10px;
+  
+}
+.go-back-shopping a:hover{
+  text-decoration: underline;
+}
+.heading h1{
+  color: hsl(0, 0%, 30%);
+}
+
+.order-summary h1{
+  font-size: 1rem;
+  padding: 10px;
+  color: hsl(0, 0%, 30%);
+}
+.order-p{
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 10px;
+  align-items: center;
+  border-top: 1px solid hsl(0, 0%, 80%);
+}
+.order-p p, span{
+  padding-top: 10px;
+  font-size: 1.2rem;
+  
+}
+.delivery-fee{
+  margin: 10px;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid hsl(0, 0%, 80%);
+
+}
+.delivery-fee p, span{
+  padding: 0;
+  font-size: 1.2rem;
+}
+.order-total{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.order-total h1{
+  font-size: 1.3rem;
+}
+.order-total span{
+  font-size: 1.4rem;
+  font-weight: 700;
+  
+}
+
+.confirm-order{
+  padding: 10px;
+  border-top: 1px solid hsl(0, 0%, 80%);
+  /* border: 2px solid red; */
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.alink a{
+  width: 100%;
+}
+.confirm-order{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+.confirm-order button{
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+  padding: 5px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  color: white;
+  background-color: hsl(27,100%,63%);
+  transition: all 500ms ease-in-out;
+}
+.confirm-order button:hover{
+  background-color: hsl(27,100%,43%);
+}
+.terms-and-condition{
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  text-align: center;
+}
+.terms-and-condition p a:hover{
+  text-decoration: underline;
+}
+.payment-preview{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  /* background-color: blue; */
+}
+
+.total-pay{
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.total-pay p{
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.total-pay span{
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: hsl(210,95%,56%);
+}
+.you-pay{
+  font-size: 0.8rem;
+  padding-left: 10px;
+  margin-top: 20px;
+  width: 40%;
+  
+}
+.you-pay h1{
+  color: hsl(0, 0%, 50%);
+}
+.mpesa-number{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+.mpesa-number p{
+font-size: 1.4rem;
+
+}
+.mpesa-number img{
+  width: 80px;
+  }
+.payment-method{
+  width: 40%;
+}
+.different-payment-method{
+  font-size: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0 20px;
+  padding: 10px;
+  border-top: 1px solid hsl(0, 0%, 80%);
+}
+.different-payment-method a{
+  color: hsl(210,95%,56%);
+}
+.different-payment-method a:hover{
+  color: hsl(210,95%,36%);
+}
+.pay-now{
+  width: 40%;
+  padding: 20px;
+  margin: 20px;
+  text-align: center;
+  text-transform: uppercase;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.pay-now button{
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  text-transform: uppercase;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  background-color:  hsl(210,95%,56%);
+  transition: all 300ms ease-in-out;
+}
+.pay-now button:hover{
+
+  background-color:  hsl(210,95%,36%);
+}
+.pay-now-terms{
+  text-align: center;
+  width: 40%;
+  /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
+}
+.pay-now-terms p{
+font-size: 1rem;
+}
+.pay-now-terms a{
+  color: hsl(210,95%,56%);
+}
+.pay-now-terms a:hover{
+  color: hsl(210,95%,36%);
+}
+.jumopay{
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  padding-left: 30px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  /* color: white; */
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  /* background-color: hsl(210,95%,56%); */
+
+}
+.jumopay span{
+  font-size: 1.5rem;
+  color: hsl(210,95%,56%);
+}
+.fa-shield-halved{
+  color: hsl(210,95%,56%);
+  font-size: 1.5rem;
+}
