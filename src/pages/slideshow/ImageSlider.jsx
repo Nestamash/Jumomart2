@@ -32,7 +32,7 @@ function ImageSlider({images}){
             {
                 images.map((image, index)=>{
                     return (
-                        <i className={currentIndex ===index?"fa-solid fa-circle active":"fa-solid fa-circle"} onClick={()=>{goToImage(index)}}></i>
+                        <i key={index} className={currentIndex ===index?"fa-solid fa-circle active":"fa-solid fa-circle"} onClick={()=>{goToImage(index)}}></i>
                     );
                 })
             }

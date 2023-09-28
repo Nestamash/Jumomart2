@@ -5,7 +5,7 @@ import { auth } from '../../firestore';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useSelector } from 'react-redux';
-import './style.css'
+// import './style.css'
 const CheckOut = () => {
   const cartProducts = useSelector(state=>state.cart.cart)
  

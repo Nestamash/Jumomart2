@@ -74,9 +74,9 @@ const FlashSale = () => {
         <div className='flashsale-product-wrapper' id='slider1'>
         
             {
-                viewed.map(view=>{
+                viewed.map((view, i)=>{
                     return(
-                        <div className='flashsale-card-wrapper'>
+                        <div key={i} className='flashsale-card-wrapper'>
                 <figure>
                     <img src={view.url} alt='/' />
                 </figure>

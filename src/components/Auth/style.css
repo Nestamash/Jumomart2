@@ -48,13 +48,6 @@ p, h1, h2, h3, h4, h5, h6 {
 #root, #__next {
   isolation: isolate;
 }
-body{
-  /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
-  /* height: 100vh; */
-}
-
 .container{
   display: flex;
   justify-content: center;
@@ -175,7 +168,7 @@ color: hsl(0, 0%, 30%);
   padding-right: 5px;
   /* background-color: antiquewhite; */
 }
-.fa-chevron-right{
+.heading~.fa-chevron-right{
   font-size: 0.8rem;
   padding-left: 10px;
 }
@@ -192,7 +185,7 @@ color: hsl(0, 0%, 30%);
   font-size: 1rem;
   color: hsl(0, 0%, 30%);
 }
-.checkout-name span{
+.checkout-name>span{
   font-size: 1rem;
   color: hsl(0, 0%, 30%);
   border-right: 2px solid hsl(0, 0%, 50%);

@@ -16,7 +16,7 @@ const NavBar = () => {
       </div>
       <div className='hambuger-menu flex'>
         <input type='checkbox' id='check' />
-        <label for='check'>
+        <label htmlFor='check'>
           <div className='spans-wrapper flex'><span></span></div>
           </label>
          
@@ -39,13 +39,16 @@ const NavBar = () => {
       <NavLink to={'/'} >
       <img src='./logo.jpeg' alt='logo'/>
       </NavLink>
+      <NavLink to={'/add-products'} >
+      <i className="fa-solid fa-pen-to-square"></i>
+      </NavLink>
         
       </div>
       <div className='account-and-cart-container'>
       <button>
       <i className="fa-regular fa-user"></i>
       <select name="cars" id="cars">
-        <option selected disabled value="volvo">Account</option>
+        <option disabled value="volvo">Account</option>
         <option value="saab">My Account</option> 
         <option value="opel">Orders</option>
         <option value="audi">Saved Items</option>
@@ -54,7 +57,7 @@ const NavBar = () => {
       
       <div className='cart-wrapper'>
         
-        <span>
+        <span className='cart-no'>
           <p>{numberOfProductsInCart}</p>
         </span>
        

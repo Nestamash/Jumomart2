@@ -65,10 +65,10 @@ const Category = () => {
      <button className='scroll-btn' onClick={scrollLeft} ><i className="fa-solid fa-chevron-left"></i></button>
       <div className='slider' id='slider'>
       {
-        images.map(image=>{
+        images.map((image, i)=>{
           return(
             
-                <article>
+                <article key={i}>
                   <figure>
                   <NavLink to={'/products-preview'} end >
                     <img src={image.url} alt={image.alt} /> 
