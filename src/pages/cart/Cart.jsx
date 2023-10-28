@@ -34,7 +34,7 @@ const Cart = () => {
        
           {
             cartProducts.length>0?
-            <section className='categories-wrapper'>
+            <div className='categories-wrapper'>
             
            <div className='cart-product-container'>
            
@@ -58,12 +58,13 @@ const Cart = () => {
               </p>
             </div>
             <div className='cart-price-section'>
-              <h1>KSh {cartItem.price}</h1>
+              <h1>KSh {(cartItem.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h1>
               <div className='previous-price'>
-              <p>KSh {cartItem.previousPrice}</p>
+              <p><i>KSh</i> {(cartItem.previousPrice).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
               <span>-{cartItem.ratings}%</span>
               </div>
             </div>
+            
             <div className='remove-cart-items'>
               <button onClick={()=>dispatch(removeFromCart(cartItem.p_id))}>
               <i className="fa-solid fa-trash-can"></i>
@@ -91,7 +92,7 @@ const Cart = () => {
             <h1>CART SUMMARY</h1>
             <div className='subtotal'>
               <h2>Subtotal</h2>
-              <h1>KSh {cartTotalAmount}</h1>
+              <h1>KSh {cartTotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h1>
             </div>
             <div className='express'>
             <p><i className="fa-regular fa-circle-check"></i>
@@ -99,11 +100,11 @@ const Cart = () => {
             </div>
             <div className='check-out'>
             <NavLink to={'/checkout'}>
-              <button>CHECKOUT (KSH {cartTotalAmount})</button>
+              <button>CHECKOUT (KSH {cartTotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")})</button>
               </NavLink>
             </div>
            </div>
-            </section>
+            </div>
             
             : 
             <section className='categories-wrapper'>

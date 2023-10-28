@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '../../redux/cartSlice'; 
 import './productdetail.scss'
 import NavBar from '../../layouts/navbar/NavBar'
+import Footer from '../../layouts/footer/Footer'
+
 const ProductDetail = ({productId}) => {
   const [product, setProduct] = useState([])
   const dispatch = useDispatch();
@@ -33,7 +35,7 @@ const ProductDetail = ({productId}) => {
        <NavBar />
         <div className='container'>
           
-         <section className='categories-wrapper'>
+         <section className='pcategories-wrapper'>
           <article className='product-photo-preview'>
            <img src={product.image_url} alt='phones' />
           </article>
@@ -48,8 +50,8 @@ const ProductDetail = ({productId}) => {
                 <p>Brand: {product.brand}</p>
             </div>
             <div className='product-price'>
-            <span>KSh {product.price}</span>
-            <span>KSh {product.previousPrice}</span>
+            <span>KSh {(product.price)}</span>
+            <span>KSh {(product.previousPrice)}</span>
             <span>{-
               Math.floor(
                 (product.previousPrice-product.price)/product.previousPrice*100
@@ -90,6 +92,7 @@ const ProductDetail = ({productId}) => {
          </section>
          
         </div>
+        <Footer />
         </>
   )
 }

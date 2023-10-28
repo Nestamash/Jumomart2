@@ -3,9 +3,12 @@
     padding: 10px;
 }
 .product-wrapper{
+    
     display: flex;
+    justify-content: flex-start;
     overflow-x: auto;
     scroll-behavior:smooth;
+    // background-color: rgb(55, 255, 0);
     a{
         text-decoration: none;
         color: black;
@@ -13,7 +16,6 @@
 }
 
 .product-title{
-
     h1{
         font-size: 1rem;
         opacity: 0.7;
@@ -25,7 +27,7 @@
     }
 }
 .truncate {
-    width: 150px;
+    // width: 150px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -37,7 +39,12 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
+    // background-color: aqua;
 
+  }
+  .card-wrapper{
+    width: 130px;
+    // background-color: red;
   }
   .card-wrapper:hover{
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
@@ -47,4 +54,8 @@
     #slider{
         overflow-x: hidden;
     }
+    .card-wrapper{
+        width: 150px;
+        // background-color: rgb(57, 137, 41);
+      }
   }

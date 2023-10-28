@@ -43,6 +43,7 @@ const ProductPreview = ({handleID}) => {
         <div className='slider-container'>
         <button className='scroll-btn' onClick={scrollLeft} ><i className="fa-solid fa-chevron-left"></i></button>
         <div className='product-wrapper' id='slider'>
+          
             {
                 product.map(view=>{
                     return(
