@@ -100,6 +100,7 @@ input[type=text], input[type=password]{
 }
 .check-out-container{
   width: 70%;
+
   display: grid;
   grid-template-columns: repeat(4, 25%);
   grid-template-rows: auto;
@@ -118,6 +119,7 @@ input[type=text], input[type=password]{
   border-radius: 5px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   /* background-color: red; */
+  
 }
 .delivery-details{
   grid-area: delivery;
@@ -126,7 +128,9 @@ input[type=text], input[type=password]{
 }
 .order-summary{
   grid-area: order;
+  /* grid-row: 1; */
   border-radius: 5px;
+  width: 95%;
   height: 300px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; 
   /* background-color: aqua; */
@@ -135,8 +139,12 @@ input[type=text], input[type=password]{
 .payment-method{
   grid-area: payment;
   border-radius: 5px;
+  max-width: 40%;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; 
   /* background-color: blueviolet; */
+}
+.checkout-method{
+  max-width: 100%;
 }
 .go-back-shopping{
   grid-area: continue;
@@ -420,7 +428,7 @@ font-size: 1.4rem;
   width: 80px;
   }
 .payment-method{
-  width: 40%;
+  width: 100%;
 }
 .different-payment-method{
   font-size: 1rem;
@@ -494,4 +502,105 @@ font-size: 1rem;
 .fa-shield-halved{
   color: hsl(210,95%,56%);
   font-size: 1.5rem;
+}
+
+/* MOBILE RESPONSIVE STYLES */
+
+@media (max-width:50em){
+  body{
+    margin: 0;
+    padding: 0;
+    /* background-color: red; */
+  }
+  
+  
+  .check-out-container{
+
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    grid-template-rows: auto;
+    /* gap: 0.5rem; */
+    grid-template-areas: 
+     
+      
+      "ad ad ad ad"
+      "delivery delivery delivery delivery"
+      "payment payment payment payment"
+      "order order order order"
+      "continue continue continue continue"
+      ;
+      /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+     /* background-color: rgb(0, 255, 17); */
+  }
+  .address{
+    width: 100vw;
+    grid-area: ad;
+    border-radius: 5px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    /* background-color: red; */
+  }
+  .delivery-details{
+    width: 100vw;
+    grid-area: delivery;
+    border-radius: 5px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; 
+  }
+  .order-summary{
+    width: 100vw;
+    grid-area: order;
+    border-radius: 5px;
+    height: 300px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; 
+    /* background-color: aqua; */
+  }
+  
+  .payment-method{
+    width: 100vw;
+    grid-area: payment;
+    border-radius: 5px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; 
+    /* background-color: blueviolet; */
+  }
+  .go-back-shopping{
+    width: 100vw;
+    margin-top: 50px;
+    grid-area: continue;
+    border-radius: 5px;
+  }
+.order-total h1{
+  font-size: 1.2rem;
+}
+.order-total span{
+  padding-right: 20px;
+  font-size: 1.2rem;
+}
+.order-p{
+  margin-right: 10px;
+}
+.delivery-fee{
+  margin-right: 20px;
+}
+.payment-method{
+  min-width: 100%; 
+  /* background-color: blueviolet; */
+}
+.total-pay{
+  min-width: 100%; 
+}
+.you-pay{
+  min-width: 100%;
+}
+.pay-now{
+  min-width: 100%;
+}
+.pay-now-terms{
+  min-width: 100%;
+}
+.pay-now-terms p{
+  font-size: 0.7rem;
+}
 }

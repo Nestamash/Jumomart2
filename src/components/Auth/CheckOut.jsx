@@ -5,7 +5,7 @@ import { auth } from '../../firestore';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useSelector } from 'react-redux';
-// import './style.css'
+import './style.css'
 const CheckOut = () => {
   const cartProducts = useSelector(state=>state.cart.cart)
  
@@ -189,7 +189,7 @@ const CheckOut = () => {
                 Modify cart</NavLink>
               </div>
           </div>
-          <div className='payment-method'>
+          <div className='payment-method checkout-method'>
           <div className='heading'>
               <h1>
               <i className="fa-solid fa-circle-check"></i>

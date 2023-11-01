@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from "axios";
 import { useSelector } from 'react-redux'
+import './style.css'
 const PaymentPreview = () => {
     const cartProducts = useSelector(state=>state.cart.cart)
     const cartTotalAmount = cartProducts.reduce((acc, curr)=>{
