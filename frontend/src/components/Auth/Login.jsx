@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../firestore';
+import { auth } from '../../firestore';
  const Login = () => {
     const inputEmail = useRef(null)
     const inputPassword = useRef(null)

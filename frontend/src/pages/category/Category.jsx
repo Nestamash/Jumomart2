@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import './category.scss'
-const Category = () => {
+const Category = ({ onDataFromChild }) => {
 
   const images = [
     { url:"images/live.gif",
@@ -29,7 +29,7 @@ const Category = () => {
     alt:"homeaudio"
     },
     { url:"images/clearance.gif",
-    text:"",
+    text:"clearance",
     alt:"clearance"
     },
     { url:"images/suit.jpg",
@@ -45,7 +45,7 @@ const Category = () => {
     alt:"facial"
     },
     { url:"images/dress2.jpg",
-    text:"Women Fashion",
+    text:"Woman Fashion",
     alt:"dress"
     },
     { url:"images/laptop.jpg",
@@ -60,6 +60,10 @@ const Category = () => {
   const scrollRight = ()=>{
     document.getElementById("slider").scrollLeft += 900;
   }
+  const categoryClicked = (e)=>{
+    // alert(e);
+    onDataFromChild(e);
+  }
   return (
     <section>
      <button className='scroll-btn' onClick={scrollLeft} ><i className="fa-solid fa-chevron-left"></i></button>
@@ -71,7 +75,7 @@ const Category = () => {
                 <article key={i}>
                   <figure>
                   <NavLink to={'/products-preview'} end >
-                    <img src={image.url} alt={image.alt} /> 
+                    <img onClick={()=>categoryClicked(image.text)} src={image.url} alt={image.alt} /> 
                     </NavLink>
                   </figure>
                   <figcaption>

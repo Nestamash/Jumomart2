@@ -5,12 +5,13 @@ import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 import './productpreview.scss'
 import NavBar from '../../layouts/navbar/NavBar';
-const ProductPreview = ({handleID}) => {
+const ProductPreview = ({handleID, categoryClicked}) => {
     const [product, setProduct] = useState([])
 
     const getProducts = async()=>{
-
-        const q = query(collection(db, "products"), where("category", "==", "phones"));
+       console.log('get it: ', categoryClicked)
+      let productCategory = categoryClicked;
+        const q = query(collection(db, "products"), where("category", "==", productCategory));
      let p = []
         const querySnapshot =  await getDocs(q)
       
