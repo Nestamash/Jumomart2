@@ -17,6 +17,7 @@ import CheckOut from './components/Auth/CheckOut'
 import PaymentPreview from './components/Auth/PaymentPreview'
 import AddProducts from './pages/addproducts/AddProduct'
 import Login from './components/Auth/Login'
+import Searchedresults from './pages/searchedresults/searchedresults'
 function App() {
   const [id, setID] = useState(null)
   const handleID = (data)=>{
@@ -43,6 +44,7 @@ function App() {
     <Route  path='/payment-preview' element={<PaymentPreview />}/>
     <Route  path='/add-products' element={<AddProducts />}/>
     <Route  path='/login-page' element={<Login />}/>
+    <Route  path='/search-q' element={<Searchedresults />}/>
     </Routes>
     </>
   )

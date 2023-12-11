@@ -1,14 +1,73 @@
-import React from 'react'
+import React, {useState} from 'react'
+import { useEffect } from 'react'
+import { collection, query, where, orderBy, endAt, startAt, getDocs } from "firebase/firestore";
+import { db } from '../../firestore';
 import { NavLink } from 'react-router-dom';
 import './navbar.scss'
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setSearchTerm } from '../../redux/searchTermSlice';
 const NavBar = () => {
-
+ 
+  const dispatch = useDispatch();
    const cartProducts = useSelector(state=>state.cart.cart)
    const numberOfProductsInCart = cartProducts.reduce((acc, curr)=>{
     return acc + curr.quantity;
 
   }, 0)
+  const search_prediction = ['Laptop 1','Laptice','Lapmop','Lapnop','Laplap', 'Laptop 2', 'matiti', 'Laptop 4', 'Laptop 5', 'Laptop 6', 'Laptop 7', 'Laptop 8',]
+  
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+
+  // get search results from the firebase firestore
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+      if (searchQuery.length >= 3) {
+        console.log('Search Query:', searchQuery);
+
+        const startTerm = searchQuery.charAt(0).toUpperCase() + searchQuery.slice(1).toLowerCase();
+        const endTerm = startTerm.slice(0, -1) + String.fromCharCode(startTerm.charCodeAt(startTerm.length - 1) + 1);
+  
+        const q = query(
+          collection(db, 'products'),
+          orderBy('title'),
+          startAt(startTerm),
+          endAt(endTerm + '\uf8ff') // Ensure it goes up to the next character
+        );
+
+        const querySnapshot = await getDocs(q);
+
+        const results = querySnapshot.docs.map((doc) => doc.data());
+
+        console.log('Search Results:', results);
+
+      setSearchResults(results); 
+
+      } else {
+        setSearchResults([]);
+      }
+    };
+
+    fetchSearchResults();
+  }, [searchQuery]);
+
+  // console.log("FIRESTORE sEARCH RESULTS: ",searchResults)
+  const handleItemClick = async (title) => {
+    // Perform actions when an item is clicked
+    
+    console.log('Clicked item cool:', title);
+
+ // Dispatch the action to set the search term in Redux
+ dispatch(setSearchTerm(title));
+
+  };
+
+  function trimText(text, maxLength) {
+    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+  };
+
   return (
     <header>
       <div className='top-nav'>
@@ -68,10 +127,27 @@ const NavBar = () => {
       </div>
       </div>
         <form className='search-bar-wrapper'>
-          <input type='text' placeholder='Search products, brands, and categories' />
+          <input type='text' placeholder='Search products, brands, and categories'  
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onFocus={() => setIsSearchFocused(true)}
+          onBlur={() => setIsSearchFocused(false)}
+          />
           <button>
           <i className="fa-solid fa-magnifying-glass"></i>
-          </button>  
+          </button> 
+          <div className='search-prerdiction'>
+          {searchResults.length > 0 && (
+            <ul>
+              {searchResults.map((pred, index) => (
+                <NavLink to={'/search-q'} >
+                <li key={index}  onClick={() => handleItemClick(pred)}>{trimText(pred.title, 30)}</li>
+                </NavLink>
+     
+              ))}
+            </ul>
+          )}
+            </div> 
         </form>
     </header>
   )
