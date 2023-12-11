@@ -44,7 +44,7 @@ function App() {
     <Route  path='/payment-preview' element={<PaymentPreview />}/>
     <Route  path='/add-products' element={<AddProducts />}/>
     <Route  path='/login-page' element={<Login />}/>
-    <Route  path='/search-q' element={<Searchedresults />}/>
+    <Route  path='/search-q' element={<Searchedresults handleID={handleID} />}/>
     </Routes>
     </>
   )

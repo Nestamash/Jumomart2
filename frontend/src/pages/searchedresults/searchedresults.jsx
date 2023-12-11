@@ -5,34 +5,40 @@ import { db } from '../../firestore';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectSearchTerm } from '../../redux/searchTermSlice';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../redux/cartSlice';
 import NavBar from '../../layouts/navbar/NavBar';
 import './searchedresults.scss'
-const Searchedresults = () => {
+const Searchedresults = ({handleID}) => {
   const product = useSelector(selectSearchTerm);
-  // console.log('Global search term:', product);
+   console.log('Global search term:', product);
+   const productID = product.p_id;
+
+   console.log('product id captured:', productID);
 
     const [isButtonVisible, setIsButtonVisible] = useState(false);
-   ;
+    const [titleID, setTitleID] = useState([]);
+    const dispatch = useDispatch();
     
-    // const getProducts = async()=>{
-    // //    console.log('get it: ', categoryClicked)
-    //   let productCategory = search;
-    //     const q = query(collection(db, "products"), where("title", "==", productCategory));
-    //  let p = []
-    //     const querySnapshot =  await getDocs(q)
+    const getProducts = async()=>{
+    //    console.log('get it: ', categoryClicked)
+      // let productCategory = search;
+        const q = query(collection(db, "products"), where("p_id", "==", productID));
+     let p = []
+        const querySnapshot =  await getDocs(q)
       
-    //       querySnapshot.docs.map((doc) => {
+          querySnapshot.docs.map((doc) => {
         
-    //         const data = ({id:doc.id, ...doc.data()});
-    //         p.push(data)
-    //         setProduct(p)
-    //     })
+            const data = ({id:doc.id, ...doc.data()});
+            p.push(data)
+            setTitleID(p)
+        })
     
-    //   }
+      }
 
-    //   useEffect(()=>{
-    //     //  getProducts()   
-    //   },[])
+      useEffect(()=>{
+          getProducts()   
+      },[])
 
     useEffect(() => {
         // Set a timeout to delay the animation, you can adjust the duration as needed
@@ -82,8 +88,16 @@ const Searchedresults = () => {
             <p><strong>1</strong> products found</p>
             </div>
             <div className='search-results'>
-                
+              
+{
+  titleID.map(view=>{
+    console.log('product id is now catured correct: ', view);
+    return(
+             
+              
                         <article className='article'>
+                            <div className='clikable' onClick={()=>{handleID(view)}}>
+                            <NavLink to={'/products-detail'} >
                             <figure>
                                 <img src={product.image_url} alt='product-img'/>
                             </figure>
@@ -102,10 +116,17 @@ const Searchedresults = () => {
                             <i className="fa-solid fa-star"></i>
                             <i className="fa-solid fa-star"></i>
                             <i className="fa-regular fa-star-half-stroke"></i>    
-                            <i>(4)</i>
-                            <button className={`cart-button ${isButtonVisible ? 'visible' : ''}`}>ADD TO CART</button>
+                            <i>({product.ratings})</i>
+                            </NavLink> 
+                            </div>
+                            <button className={`cart-button ${isButtonVisible ? 'visible' : ''}`} onClick={()=> dispatch(addToCart(product))}>ADD TO CART</button>
 
-                    </article>   
+                    </article> 
+                    
+    );
+   })
+}
+                 
                     
                 
             </div>

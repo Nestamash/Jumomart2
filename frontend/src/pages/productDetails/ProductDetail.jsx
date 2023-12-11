@@ -9,6 +9,7 @@ import NavBar from '../../layouts/navbar/NavBar'
 import Footer from '../../layouts/footer/Footer'
 
 const ProductDetail = ({productId}) => {
+  console.log('This is the HandleId: ', productId);
   const [product, setProduct] = useState([])
   const dispatch = useDispatch();
   const getProducts = async()=>{
