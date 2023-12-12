@@ -31,6 +31,12 @@ const ProductDetail = ({productId}) => {
     getProducts()   
   },[])
   // console.log('not success:', product.title)
+  function formatPrice(number) {
+    if (number === undefined) {
+      return ''; // or any default value you prefer
+    }
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
   return (
     <>
        <NavBar />
@@ -51,8 +57,8 @@ const ProductDetail = ({productId}) => {
                 <p>Brand: {product.brand}</p>
             </div>
             <div className='product-price'>
-            <span>KSh {(product.price)}</span>
-            <span>KSh {(product.previousPrice)}</span>
+            <span>KSh {formatPrice(product.price)}</span>
+            <span>KSh {formatPrice(product.previousPrice)}</span>
             <span>{-
               Math.floor(
                 (product.previousPrice-product.price)/product.previousPrice*100

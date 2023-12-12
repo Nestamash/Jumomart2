@@ -7,6 +7,9 @@ import './navbar.scss'
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setSearchTerm } from '../../redux/searchTermSlice';
+import { setSearchResultsAction } from '../../redux/searchResultsSlice';
+import { setSearchWord } from '../../redux/searchedWordSlice';
+
 const NavBar = () => {
  
   const dispatch = useDispatch();
@@ -20,7 +23,6 @@ const NavBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
-
   // get search results from the firebase firestore
   useEffect(() => {
     const fetchSearchResults = async () => {
@@ -67,6 +69,18 @@ const NavBar = () => {
   function trimText(text, maxLength) {
     return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
   };
+
+  const handleButtonClick = () => {
+     // pass the searchquery as prop to parent component
+   // Check if searchResults is defined before dispatching
+   dispatch(setSearchWord(searchQuery)); // Dispatch the action to update the searchedWord state
+   
+  if (searchResults !== undefined) {
+    console.log("handle button acion dispacteds: ",searchResults)
+    dispatch(setSearchResultsAction(searchResults)); // Dispatch the results to Redux
+  }
+  };
+     
 
   return (
     <header>
@@ -133,9 +147,16 @@ const NavBar = () => {
           onFocus={() => setIsSearchFocused(true)}
           onBlur={() => setIsSearchFocused(false)}
           />
-          <button>
-          <i className="fa-solid fa-magnifying-glass"></i>
-          </button> 
+           
+                <NavLink to={'/search-q'} >
+                <button type="button" onClick={handleButtonClick}>
+                <i className="fa-solid fa-magnifying-glass"></i>
+                </button> 
+               
+                </NavLink>
+     
+             
+           
           <div className='search-prerdiction'>
           {searchResults.length > 0 && (
             <ul>
