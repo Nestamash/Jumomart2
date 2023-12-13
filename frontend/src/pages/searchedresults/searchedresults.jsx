@@ -13,35 +13,55 @@ import './searchedresults.scss';
 
 const Searchedresults = ({ handleID }) => {
   const product = useSelector(selectSearchTerm);
+  const productArray = useSelector(selectSearchResults);
+
   const typedWord = useSelector(selectSearchedWord);
-  console.log('Global search term:', product);
+  // console.log('Global search term:', product);
+  // console.log('Global search search RESULTS: ', productArray.length);
 
   // Check if product is not null before accessing p_id
   const productID = product ? product.p_id : null;
-  console.log('product id captured:', productID);
+  // console.log('product id captured:', productID);
 
   const [isButtonVisible, setIsButtonVisible] = useState(false);
   const [titleID, setTitleID] = useState([]);
-  const [searchedWord, setsearchedWord] = useState('');
   const dispatch = useDispatch();
 
-  const getProducts = async () => {
+  const getProducts = async (productID) => {
+    // console.log('Fetching product for productID:', productID);
     if (productID) {
       const q = query(collection(db, 'products'), where('p_id', '==', productID));
-      let p = [];
       const querySnapshot = await getDocs(q);
-
-      querySnapshot.docs.map((doc) => {
+  
+      let products = [];
+      querySnapshot.docs.forEach((doc) => {
         const data = { id: doc.id, ...doc.data() };
-        p.push(data);
-        setTitleID(p);
+        products.push(data);
       });
+  
+      // Set the state after fetching all products for the current productID
+      setTitleID((prevTitleID) => [...prevTitleID, ...products]);
     }
   };
 
   useEffect(() => {
-    getProducts();
+     // Clear titleID before starting a new search
+     setTitleID([]);
+
+    // Only call getProducts if productID is valid
+  if (productID) {
+    getProducts(productID);
+  }
   }, [productID]);
+
+  useEffect(() => {
+    // Clear titleID before starting a new search
+  setTitleID([]);
+    // Map through the productArray and call getProducts for each product
+    productArray.forEach((product) => {
+      getProducts(product.p_id);
+    });
+  }, [productArray]);
 
   useEffect(() => {
     // Set a timeout to delay the animation, you can adjust the duration as needed
@@ -65,6 +85,9 @@ const Searchedresults = ({ handleID }) => {
   }
 
   const percentageDecrease = product ? calculatePercentageDecrease(product.price, product.previousPrice) : null;
+
+  // Check if percentageDecrease is not null before using toFixed
+  const formattedPercentageDecrease = percentageDecrease !== null ? -percentageDecrease.toFixed(0) : null;
  
   return (
     <>
@@ -106,7 +129,7 @@ const Searchedresults = ({ handleID }) => {
                         <div className="previous-price">
                           <h2>Ksh. {view.previousPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</h2>
                           <span>
-                            <strong>{-percentageDecrease.toFixed(0)}</strong>
+                            <strong>{-formattedPercentageDecrease}</strong>
                           </span>
                         </div>
                         <i className="fa-solid fa-star"></i>

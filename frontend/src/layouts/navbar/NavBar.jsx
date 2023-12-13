@@ -76,7 +76,7 @@ const NavBar = () => {
    dispatch(setSearchWord(searchQuery)); // Dispatch the action to update the searchedWord state
    
   if (searchResults !== undefined) {
-    console.log("handle button acion dispacteds: ",searchResults)
+    console.log("handle button acion dispacteds CHECKIT: ",searchResults)
     dispatch(setSearchResultsAction(searchResults)); // Dispatch the results to Redux
   }
   };
@@ -158,7 +158,7 @@ const NavBar = () => {
              
            
           <div className='search-prerdiction'>
-          {searchResults.length > 0 && (
+          {searchResults.length > 0 && ( //isSearchFocused &&
             <ul>
               {searchResults.map((pred, index) => (
                 <NavLink to={'/search-q'} >
