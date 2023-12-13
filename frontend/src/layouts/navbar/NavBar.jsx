@@ -23,6 +23,7 @@ const NavBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
+  const [isSearchPredictionVisible, setIsSearchPredictionVisible] = useState(false);
   // get search results from the firebase firestore
   useEffect(() => {
     const fetchSearchResults = async () => {
@@ -58,7 +59,7 @@ const NavBar = () => {
   // console.log("FIRESTORE sEARCH RESULTS: ",searchResults)
   const handleItemClick = async (title) => {
     // Perform actions when an item is clicked
-    
+    setIsSearchPredictionVisible(false);
     console.log('Clicked item cool:', title);
 
  // Dispatch the action to set the search term in Redux
@@ -72,6 +73,7 @@ const NavBar = () => {
 
   const handleButtonClick = () => {
      // pass the searchquery as prop to parent component
+     setIsSearchPredictionVisible(false);
    // Check if searchResults is defined before dispatching
    dispatch(setSearchWord(searchQuery)); // Dispatch the action to update the searchedWord state
    
@@ -81,7 +83,21 @@ const NavBar = () => {
   }
   };
      
-
+// STYLES TYPING MATCHED HELPER FUNCTION
+const boldMatchedText = (text, query) => {
+  const index = text.toLowerCase().indexOf(query.toLowerCase());
+  if (index !== -1) {
+    const matchedText = text.slice(index, index + query.length);
+    const restOfText = text.slice(index + query.length);
+    return (
+      <span>
+        <strong>{matchedText}</strong>
+        {restOfText}
+      </span>
+    );
+  }
+  return text;
+};
   return (
     <header>
       <div className='top-nav'>
@@ -144,7 +160,10 @@ const NavBar = () => {
           <input type='text' placeholder='Search products, brands, and categories'  
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          onFocus={() => setIsSearchFocused(true)}
+          onFocus={() => {
+            setIsSearchFocused(true);
+            setIsSearchPredictionVisible(true); // Set visibility to true when the input is focused
+          }}
           onBlur={() => setIsSearchFocused(false)}
           />
            
@@ -157,18 +176,22 @@ const NavBar = () => {
      
              
            
-          <div className='search-prerdiction'>
-          {searchResults.length > 0 && ( //isSearchFocused &&
-            <ul>
-              {searchResults.map((pred, index) => (
-                <NavLink to={'/search-q'} >
-                <li key={index}  onClick={() => handleItemClick(pred)}>{trimText(pred.title, 30)}</li>
-                </NavLink>
-     
-              ))}
-            </ul>
-          )}
-            </div> 
+                <div className='search-prerdiction' 
+                style={{ display: isSearchPredictionVisible ? 'block' : 'none' }}
+                >
+                  {searchResults.length > 0 && (
+                    <ul>
+                      {searchResults.slice(0, 5).map((pred, index) => ( // Displaying only the first 5 predictions
+                        <NavLink to={'/search-q'} key={index}>
+                          <li onClick={() => handleItemClick(pred)}>
+                        
+                            {boldMatchedText(trimText(pred.title, 30), searchQuery)}
+                            </li>
+                        </NavLink>
+                      ))}
+                    </ul>
+                  )}
+                </div>
         </form>
     </header>
   )

@@ -41,6 +41,8 @@ const Searchedresults = ({ handleID }) => {
   
       // Set the state after fetching all products for the current productID
       setTitleID((prevTitleID) => [...prevTitleID, ...products]);
+
+      
     }
   };
 
@@ -117,8 +119,9 @@ const Searchedresults = ({ handleID }) => {
             </div>
             <div className="search-results">
               {titleID.length > 0 ? (
-                titleID.map((view) => (
-                  <article className="article" key={view.id}>
+                titleID.map((view, index) => (
+                  <>
+                  <article className="article" key={`${view.id}-${index}`}>
                     <div className="clikable" onClick={() => handleID(view)}>
                       <NavLink to={'/products-detail'}>
                         <figure>
@@ -147,6 +150,7 @@ const Searchedresults = ({ handleID }) => {
                       ADD TO CART
                     </button>
                   </article>
+                  </>
                 ))
               ) : (
                 // Render the empty state JSX when titleID is empty
