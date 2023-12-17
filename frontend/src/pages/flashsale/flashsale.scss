@@ -34,6 +34,103 @@
     }
 }
 
+// flash card
+.article{
+        
+    min-width: 200px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    padding: 5px;
+     transition: box-shadow 0.3s ease-in-out;
+    // background-color: aqua;
+}
+.article:hover{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+figure{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+img{
+    width: 80%;
+    
+}
+.title{
+    margin-top: 5px;
+    // background-color: red;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    p {
+      margin: 10px 0;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+}
+
+
+
+h2{
+    font-size: 0.9rem;
+    opacity: 0.6;
+    text-decoration: line-through;
+    padding-left: 10px;
+}
+
+.clickable{
+    h1{
+        font-weight: 600;
+        font-size: 0.95rem;
+        padding-left: 10px;
+    }
+}
+
+.ratings-wrapper{
+    padding-left: 10px;
+
+    i{
+        font-size: 0.8rem;
+    }
+}
+.article{
+    overflow-y: hidden;
+    button {
+        opacity: 0;
+        transform: translateY(20px);
+        width: 100%;
+        border: none;
+        outline: none;
+        color: whitesmoke;
+        margin-bottom: 2px;
+        margin-top: 15px;
+        border-radius: 5px;
+        background-color: hsl(27, 100%, 63%);
+        transition: background-color 0.3s ease, opacity 0.5s ease, transform 0.5s ease;
+    
+        &:hover {
+          background-color: hsl(27, 100%, 43%);
+        }
+      }
+    
+      &:hover {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    
+        button {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+}
+
+
 @media (min-width:50em){
     #slider1{
         overflow-x: hidden;

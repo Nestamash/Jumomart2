@@ -17,10 +17,13 @@ import CheckOut from './components/Auth/CheckOut'
 import PaymentPreview from './components/Auth/PaymentPreview'
 import AddProducts from './pages/addproducts/AddProduct'
 import Login from './components/Auth/Login'
+import SignUp from './components/Auth/SignUp'
 import Searchedresults from './pages/searchedresults/searchedresults'
+import AsideCategory from './pages/asideCategory/asideCategory'
 function App() {
   const [id, setID] = useState(null)
   const handleID = (data)=>{
+    console.log('SETID: ', data.id)
     setID(data.id)
   }
   const [childData, setChildData] = useState(null);
@@ -33,7 +36,7 @@ function App() {
   return (
     <>
     <Routes>
-    <Route  path='/' element={<Home onDataFromHome={handleChildData}/>}/>
+    <Route  path='/' element={<Home onDataFromHome={handleChildData} handleID={handleID}/>}/>
     <Route  path='/last-searched' element={<LastSearched />}/>
     <Route  path='/last-viewed' element={<Lastviewed />}/>
     <Route  path='/last-searched' element={<LastSearched />}/>
@@ -44,7 +47,10 @@ function App() {
     <Route  path='/payment-preview' element={<PaymentPreview />}/>
     <Route  path='/add-products' element={<AddProducts />}/>
     <Route  path='/login-page' element={<Login />}/>
+    <Route  path='/signup' element={<SignUp />}/>
     <Route  path='/search-q' element={<Searchedresults handleID={handleID} />}/>
+    <Route  path='/aside-category' element={<AsideCategory handleID={handleID} />}/>
+
     </Routes>
     </>
   )

@@ -19,7 +19,7 @@ const AddProducts = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const categoryOptions = ["Small Appliances", "Television", "Smartphones", "Fridges", "Home Audio", "Men Fashion", "Woman Fashion", "Facial Skincare", "Laptops", "Kitchen & Dining", ""];
+  const categoryOptions = ["Small Appliances", "Television", "Smartphones", "Fridges", "Home Audio", "Men Fashion", "Woman Fashion", "Facial Skincare", "Laptops", "Kitchen & Dining", "Phones", "Appliances","Health & Beauty","Home & Office", "Fashion", "Supermarket","Baby Products", "Computing", "Sporting Goods"];
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {

@@ -96,15 +96,7 @@ const Searchedresults = ({ handleID }) => {
       <NavBar />
       <div className="main-container">
         <div className="search-container">
-          <div className="category-wrapper">
-            <p>product 1</p>
-            <p>product 2</p>
-            <p>product 3</p>
-            <p>product 4</p>
-            <p>product 5</p>
-            <p>product 6</p>
-            <p>product 7</p>
-          </div>
+         
           <div className="search-result-wrapper">
             <div className="sort-by">
               <p>

@@ -19,10 +19,11 @@
 
 }
 .search-result-wrapper{
-    width: 75%;
+    width: 90%;
     border-radius: 5px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     background-color: white;
+    
 }
 .sort-by{
     display: flex;
@@ -57,6 +58,10 @@ i{
     // background-color: aquamarine;
     p{
         font-size: 1.1rem;
+
+        strong{
+            padding-left: 5px;
+        }
     }
 }
 .search-results{
@@ -140,7 +145,7 @@ i{
     transform: translateY(0);
   }
   .previous-price{
-    display: flex; n
+    display: flex;
 
     span{
         text-decoration: none;

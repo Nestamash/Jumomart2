@@ -72,13 +72,21 @@ main{
     align-items: center;
     
     // background-color: red;
+    margin: 15px 5px;
     i{
         margin-right: 5px;
+    }
+    p{
+        font-size: 1.1rem;
+    }
+    p:hover{
+        color: hsl(34,100%,64%);
     }
 
 }
 .aside-links:hover{
     cursor: pointer;
+    color: hsl(34,100%,64%);
 }
 @media (min-width:50em){
     main{

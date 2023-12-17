@@ -4,7 +4,7 @@ import SlideShow from '../slideshow/SlideShow'
 import Category from '../category/Category'
 import FlashSale from '../flashsale/FlashSale'
 import Footer from '../../layouts/footer/Footer'
-const home = ({onDataFromHome}) => {
+const home = ({onDataFromHome, handleID}) => {
   const [childData, setChildData] = useState(null);
   
   const handleChildData = (dataFromChild) => {
@@ -29,7 +29,7 @@ const home = ({onDataFromHome}) => {
     <NavBar />
     <SlideShow images={images}/>
     <Category onDataFromChild={handleChildData}/>
-    <FlashSale />
+    <FlashSale handleID={handleID} />
     <Footer />
     </>
   )
