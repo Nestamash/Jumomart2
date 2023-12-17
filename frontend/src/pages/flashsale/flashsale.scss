@@ -77,7 +77,12 @@ img{
 }
 
 
-
+h1{
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding-left: 10px;
+}
+.previous-price
 h2{
     font-size: 0.9rem;
     opacity: 0.6;
@@ -85,13 +90,7 @@ h2{
     padding-left: 10px;
 }
 
-.clickable{
-    h1{
-        font-weight: 600;
-        font-size: 0.95rem;
-        padding-left: 10px;
-    }
-}
+
 
 .ratings-wrapper{
     padding-left: 10px;

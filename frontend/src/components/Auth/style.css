@@ -504,6 +504,25 @@ font-size: 1rem;
   font-size: 1.5rem;
 }
 
+
+.error-message {
+  color: #721c24; /* Text color for error message */
+  background-color: #f8d7da; /* Background color for error message */
+  border: 1px solid #f5c6cb; /* Border color for error message */
+  padding: 0.75rem; /* Padding around the error message */
+  margin-top: 5px; /* Margin space above the error message */
+  border-radius: 0.25rem; /* Border radius for rounded corners */
+}
+
+/* Optional: Add transition for a smoother appearance */
+.error-message {
+  transition: background-color 0.3s ease;
+}
+
+.error-message:hover {
+  background-color: #f5c6cb; /* Change background color on hover */
+}
+
 /* MOBILE RESPONSIVE STYLES */
 
 @media (max-width:50em){

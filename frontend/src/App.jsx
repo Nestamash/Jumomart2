@@ -33,6 +33,8 @@ function App() {
     console.log('Data from Home appjsx:', dataFromChild);
     setChildData(dataFromChild);
   };
+
+
   return (
     <>
     <Routes>

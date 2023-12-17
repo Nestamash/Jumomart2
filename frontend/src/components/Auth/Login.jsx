@@ -15,7 +15,8 @@ import { auth } from '../../firestore';
             signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
               // Signed in 
-              const user = userCredential.user;
+             const loggedInUser = userCredential.user;
+             console.log('user is : ', loggedInUser)
               navigate('/checkout')
             })
             .catch((error) => {

@@ -346,6 +346,34 @@ span::before, span::after{
     
     }
 
+    .dropdown-log{
+      background-color: red;
+    }
+
+
+    .user-email-logout{
+      // background-color: red;
+      // padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      button{
+         // background-color: $primary-color;
+         color: $primary-color;
+         border: none;
+         outline: none;
+         border-radius: 5px;
+         font-size: 0.9rem;
+      }
+      button:hover{
+         cursor: pointer;
+         color: $button-hover-color;
+         background-color: transparent;
+         
+      }
+    }
+
    //  search prediction
 
          // Desktop & Laptop design
