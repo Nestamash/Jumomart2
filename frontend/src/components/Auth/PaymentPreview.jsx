@@ -1,8 +1,15 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import axios from "axios";
 import { useSelector } from 'react-redux'
+import { auth, db } from '../../firestore';  
+import { NavLink, useNavigate } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
+import { getDoc, doc } from 'firebase/firestore';
 import './style.css'
 const PaymentPreview = () => {
+
+  const [userDetails, setUserDetails] = useState(null);
+
     const cartProducts = useSelector(state=>state.cart.cart)
     const cartTotalAmount = cartProducts.reduce((acc, curr)=>{
       return acc + (curr.quantity*curr.price);
@@ -26,6 +33,53 @@ const PaymentPreview = () => {
         })
         .catch((err) => console.log(err.message));
     }
+
+    const navigate = useNavigate()
+    
+          useEffect(() => {
+            onAuthStateChanged(auth, async (user) => {
+              if (user) {
+                try {
+                  const userDocRef = doc(db, 'users', user.uid);
+                  const userDocSnapshot = await getDoc(userDocRef);
+        
+                  if (userDocSnapshot.exists()) {
+                    // User document exists, update the state with user details
+                    setUserDetails(userDocSnapshot.data());
+                  } else {
+                    // Handle the case where the user document does not exist
+                  }
+                } catch (error) {
+                  // Handle any errors that may occur while fetching user data
+                  console.error('Error fetching user data:', error);
+                }
+              } else {
+                // User is signed out
+                // ...
+                navigate('/login-page');
+              }
+            });
+          }, []);
+
+          function formatPhoneNumber(phoneNumber) {
+
+            if (!phoneNumber) {
+              return ''; // Handle the case where phoneNumber is null or undefined
+            }
+            
+            // Remove leading zeros
+            const cleanedNumber = phoneNumber.replace(/^0+/, '');
+          
+            // Extract the last four digits
+            const lastFourDigits = cleanedNumber.slice(-4);
+          
+            // Replace the remaining digits with 'X'
+            const formattedNumber = 'XXXX-' + lastFourDigits;
+          
+            return formattedNumber;
+          }
+
+          console.log('user paymentprevioew: ', userDetails?.email);
   return (
     <div className='payment-preview'>
       <div className='jumopay'>
@@ -38,7 +92,7 @@ const PaymentPreview = () => {
         <div className='you-pay'><h1>You will pay with</h1></div>
         <div className='payment-method'>
         <div className='mpesa-number'>
-            <p>M-PESA XXXX-9458</p>
+            <p>M-PESA {formatPhoneNumber(userDetails?.phoneNumber)}</p>
             <span>
                 <img src='/images/mpesalogo.png' alt='mpesa logo' />
             </span>

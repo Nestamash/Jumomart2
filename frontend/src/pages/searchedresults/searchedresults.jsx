@@ -124,7 +124,7 @@ const Searchedresults = ({ handleID }) => {
                         <div className="previous-price">
                           <h2>Ksh. {view.previousPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</h2>
                           <span>
-                            <strong>{-formattedPercentageDecrease}</strong>
+                            <strong>{formattedPercentageDecrease}</strong>
                           </span>
                         </div>
                         <i className="fa-solid fa-star"></i>

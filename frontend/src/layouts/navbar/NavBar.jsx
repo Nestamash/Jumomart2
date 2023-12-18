@@ -8,7 +8,7 @@ import { setSearchTerm } from '../../redux/searchTermSlice';
 import { setSearchResultsAction } from '../../redux/searchResultsSlice';
 import { setSearchWord } from '../../redux/searchedWordSlice';
 import { useAuth } from '../../components/AuthContext';
-import { auth } from '../../firestore';
+import { auth} from '../../firestore';
 
 const NavBar = () => {
   const { user, logout } = useAuth();

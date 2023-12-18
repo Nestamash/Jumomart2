@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios";
 import { signOut } from "firebase/auth";
-import { auth } from '../../firestore';  
+import { auth, db } from '../../firestore';  
 import { NavLink, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
+import { getDoc, doc } from 'firebase/firestore';
 import { useSelector } from 'react-redux';
 import './style.css'
 const CheckOut = () => {
+  const [userDetails, setUserDetails] = useState(null);
   const cartProducts = useSelector(state=>state.cart.cart)
  
   const cartTotalAmount = cartProducts.reduce((acc, curr)=>{
@@ -26,24 +28,35 @@ const CheckOut = () => {
   
 
 
-    const [logOutError, setLogOutError] = useState(null)
-    const [loginUserEmail, setLoginUserEmail]= useState(null)
+    // const [logOutError, setLogOutError] = useState(null)
+    // const [loginUserEmail, setLoginUserEmail]= useState(null)
     const navigate = useNavigate()
-    useEffect(()=>{
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-              // User is signed in, see docs for a list of available properties
-              // https://firebase.google.com/docs/reference/js/auth.user
-              const uid = user.uid;
-              setLoginUserEmail(user.email)
-              // ...
-            } else {
-              // User is signed out
-              // ...
-              navigate('/login-page')
-            }
-          });
-    }, [])
+    
+          useEffect(() => {
+            onAuthStateChanged(auth, async (user) => {
+              if (user) {
+                try {
+                  const userDocRef = doc(db, 'users', user.uid);
+                  const userDocSnapshot = await getDoc(userDocRef);
+        
+                  if (userDocSnapshot.exists()) {
+                    // User document exists, update the state with user details
+                    setUserDetails(userDocSnapshot.data());
+                  } else {
+                    // Handle the case where the user document does not exist
+                  }
+                } catch (error) {
+                  // Handle any errors that may occur while fetching user data
+                  console.error('Error fetching user data:', error);
+                }
+              } else {
+                // User is signed out
+                // ...
+                navigate('/login-page');
+              }
+            });
+          }, []);
+          
 
     const handleSignOut = ()=>{
         signOut(auth)
@@ -73,6 +86,8 @@ const CheckOut = () => {
   }
   
 
+  console.log('user data and details: ', userDetails);
+
   return (
 
       
@@ -88,11 +103,11 @@ const CheckOut = () => {
               </a>
             </div>
             <div className='checkout-name'>
-              <h1>Peter Macharia</h1>
+              <h1>{userDetails?.firstName + ' ' + userDetails?.lastName}</h1>
               <p>
-                <span>Juja</span>
-                <span>Kirinyanga-Kerugoya Town</span>
-                <span>+254 729 989 466</span>
+                <span>{userDetails?.deliveryLocation}</span>
+                <span>{userDetails?.deliveryLocation}</span>
+                <span> {userDetails?.phoneNumber}</span>
               </p>
             </div>
           </div>
@@ -152,8 +167,8 @@ const CheckOut = () => {
               </a>
             </div>
             <div className='checkout-name'>
-              <h1>Jumomart Flexcom Kerugoya Station</h1>
-              <p>Kerugoya Mall ( Cabanas) opposite Jeevanjee Gardens, Ground floor, shop no. 4, opposite Jeevanjee Gardens, Ground floor, shop no. 4 | Kirinyaga - Kerugoya Town</p>
+              <h1>Jumomart Flexcom Juja Station</h1>
+              <p>{userDetails?.deliveryLocation}</p>
             </div>
             </div>
             <div className='heading-shipment'>
@@ -168,9 +183,9 @@ const CheckOut = () => {
 
               <div className='shipment-items'>
                 {
-                  cartProducts.map(item=>{
+                  cartProducts.map((item, i)=>{
                     return(
-                      <picture>
+                      <picture key={i}>
                         <img src={item.image_url} alt='items' />
                         <div>
                         <span>{item.title}</span>
