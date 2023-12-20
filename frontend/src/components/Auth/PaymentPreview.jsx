@@ -9,6 +9,9 @@ import './style.css'
 const PaymentPreview = () => {
 
   const [userDetails, setUserDetails] = useState(null);
+  const [paymentMessage, setPaymentMessage] = useState(null);
+  const [isPaymentMessageDisplayed, setIsPaymentMessageDisplayed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
     const cartProducts = useSelector(state=>state.cart.cart)
     const cartTotalAmount = cartProducts.reduce((acc, curr)=>{
@@ -19,20 +22,42 @@ const PaymentPreview = () => {
     const deliveryFee = Math.floor(cartTotalAmount*0.009);
     const x = (cartTotalAmount+deliveryFee).toFixed(2)
 
+    const totalAmount = (cartTotalAmount+deliveryFee).toFixed(0)
+
     const totalAmountWithCommas = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     
     const handleMpesaPayment = ()=>{
         axios
         .post("http://localhost:5000/api/stkpush", {
+
+          phoneNumber: MpesaformatPhoneNumber(userDetails?.phoneNumber),
+          amount: totalAmount, // Assuming x is the total amount
                    
         })
         .then((response) => {
-          if (response.data.url) {
+          console.log(response); // Log the entire response
+          if (response.data.msg) {
+
+            setIsLoading(true);
+            
+            // Set the payment message in state
+          setPaymentMessage(response.data.msg);
+          setIsPaymentMessageDisplayed(true);
+          
+          } else if (response.data.url) {
+            // If no CustomerMessage, proceed with redirection
             window.location.href = response.data.url;
           }
         })
-        .catch((err) => console.log(err.message));
+        .catch((err) => {
+          setIsLoading(false);
+          console.log(err.message);
+        });
+       
     }
+
+    console.log('this is phoneNumber format: ',MpesaformatPhoneNumber(userDetails?.phoneNumber))
+    console.log('amount = ', totalAmount)
 
     const navigate = useNavigate()
     
@@ -60,6 +85,17 @@ const PaymentPreview = () => {
               }
             });
           }, []);
+
+          function MpesaformatPhoneNumber(phoneNumber) {
+            if (!phoneNumber) {
+              return ''; // Handle the case where phoneNumber is null or undefined
+            }
+          
+            // Remove leading zero and add '254' at the beginning
+            const formattedNumber = '254' + phoneNumber.replace(/^0+/, '');
+          
+            return formattedNumber;
+          }
 
           function formatPhoneNumber(phoneNumber) {
 
@@ -99,11 +135,34 @@ const PaymentPreview = () => {
             
         </div>
         <div className='different-payment-method'>
-                <a href=''>use a different payment method</a>
+                <a href='#'>use a different payment method</a>
             </div>
         </div>
+
+        {isPaymentMessageDisplayed && (
+        <div className='payment-message'>
+          <p>{paymentMessage}</p>
+        </div>
+      )}
+
         <div className='pay-now'>
-                <button onClick={handleMpesaPayment}>Pay Now: KES {totalAmountWithCommas}</button>
+                <button 
+                onClick={handleMpesaPayment} 
+                disabled={isLoading || isPaymentMessageDisplayed}
+                className={isPaymentMessageDisplayed ? 'disabled-button' : ''}
+                >
+                {/* {isLoading ? 'Processing...' : `Pay Now: KES ${totalAmountWithCommas}`} */}
+                
+                {isLoading ? (
+                  <div className='isProcessing'>
+                  <p>Processing...</p>
+            <div className='circular-progress'></div>
+         </div>
+            ) : (
+            `Pay Now: KES ${totalAmountWithCommas}`
+          )}
+                
+                </button>
             </div>
             <div className='pay-now-terms'>
                 <p>

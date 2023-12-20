@@ -523,6 +523,54 @@ font-size: 1rem;
   background-color: #f5c6cb; /* Change background color on hover */
 }
 
+.payment-message {
+  /* background-color: hsl(122, 39%, 49%);  */
+  background-color: hsl(128,54%,46%);
+  color: #fff; /* White text color for contrast */
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  
+}
+.payment-message p{
+  color: hsl(0, 0%, 100%);
+  
+}
+.pay-now > .disabled-button{
+  /* background-color: red; */
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+.pay-now > .disabled-button:hover{
+  background-color:  hsl(210,95%,36%);
+  /* background-color:  hsl(210,95%,56%); */
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.circular-progress {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid #ccc;
+  border-top: 3px solid #4caf50; /* Green color for the progress */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+.isProcessing p{
+  color: white;
+}
+.isProcessing{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
 /* MOBILE RESPONSIVE STYLES */
 
 @media (max-width:50em){

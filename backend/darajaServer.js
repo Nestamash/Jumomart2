@@ -9,14 +9,15 @@ const cors = require("cors")
 app.use(express.json())
 app.use(
   cors({
-    origin: "http://localhost:5173",
+     origin: "http://localhost:5173",
+    // origin: "https://a326-102-219-210-86.ngrok-free.app"
   })
 )
 // generate token
 async function getAccessToken(){
   let urlauth = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials"
-  let consumer_key = "3CGdapoaFt34VKU0AdNf5M3aOvANJsFz";
-  let consumer_secret = "aIbPpARBc8jQzoyV"; 
+  let consumer_key = "zeJJTIXVJQOGEdA1YgScW59pcwl6RGNi";
+  let consumer_secret = "KpfMPpfavz3JRvwz"; 
   let buffer = new Buffer.from(consumer_key+":"+consumer_secret);
 
   let auth1 = `Basic ${buffer.toString('base64')}`
@@ -51,10 +52,41 @@ async function getAccessToken(){
   const password = new Buffer.from(shortCode + passkey + timestamp).toString(
     "base64"
   );
+
+
+  // callBack Notification
+
+  // Handle delayed notifications from Safaricom
+app.post("/api/callback", (req, res) => {
+  // Log the received notification
+  console.log("Callback Notification Received:", req.body);
+
+  // Extract relevant information from the notification
+  const resultDesc = req.body.Body.stkCallback.ResultDesc;
+  const resultCode = req.body.Body.stkCallback.ResultCode;
+  const merchantRequestID = req.body.Body.stkCallback.MerchantRequestID;
+
+  // Check the result code to determine the status of the transaction
+  if (resultCode === "0") {
+    // Transaction was successful
+    console.log(`Transaction successful for MerchantRequestID: ${merchantRequestID}`);
+    // Update your database or perform any necessary actions for a successful transaction
+  } else {
+    // Transaction failed
+    console.log(`Transaction failed for MerchantRequestID: ${merchantRequestID}, ResultCode: ${resultCode}, ResultDesc: ${resultDesc}`);
+    // Handle the failure, update your database or perform any necessary actions
+  }
+
+  // Send a success response to Safaricom
+  res.sendStatus(200);
+});
+
+
  
 // stk push
 app.post("/api/stkpush", async (req, res) => {
 
+  const { phoneNumber, amount } = req.body;
 
   getAccessToken()
   .then((accessToken) => {
@@ -63,8 +95,8 @@ app.post("/api/stkpush", async (req, res) => {
     const url =
     "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
     const auth = "Bearer " + accessToken;
-    const phoneNumber = 254729989466
-
+    // const phoneNumber = 254729989466
+console.log(phoneNumber, amount);
     axios
         .post(
           url,
@@ -73,11 +105,11 @@ app.post("/api/stkpush", async (req, res) => {
             Password: password,
             Timestamp: timestamp,
             TransactionType: "CustomerPayBillOnline",
-            Amount: 1,
+            Amount: amount,
             PartyA: phoneNumber,
             PartyB: "174379",
             PhoneNumber: phoneNumber,
-            CallBackURL: "https://249e-105-60-226-239.ngrok-free.app/api/callback",
+            CallBackURL: "https://df6c-102-219-210-86.ngrok-free.app/api/callback",
             AccountReference: "Jumomart",
             TransactionDesc: "Mpesa Daraja API stk push test",
           },
@@ -88,9 +120,9 @@ app.post("/api/stkpush", async (req, res) => {
           }
         )
         .then((response) => {
-          console.log(response.data);
+          console.log(response.data.CustomerMessage);
           res.status(200).json({
-            msg: "Request is successful done ✔✔. Please enter mpesa pin to complete the transaction",
+            msg: "Mpesa pop-up has been sent to your phone ✔✔. Please enter mpesa pin to complete the transaction",
             status: true,
           });
 
@@ -106,5 +138,6 @@ app.post("/api/stkpush", async (req, res) => {
     .catch(console.log);
   })
 
+  
 // Start up our server on port 5000
 app.listen(5000)
