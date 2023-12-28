@@ -28,7 +28,7 @@ const PaymentPreview = () => {
     
     const handleMpesaPayment = ()=>{
 
-      const originURL = "https://earnest-blini-8fc48e.netlify.app/"
+      const originURL = "https://jumomart-daraja-mpesa-sever.onrender.com/"
 
         axios
         .post(`${originURL}api/stkpush`, {
