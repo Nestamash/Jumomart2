@@ -8,10 +8,11 @@ const app = express();
 const cors = require("cors");
 app.use(express.json());
 
+const originURL = "https://earnest-blini-8fc48e.netlify.app/"
 app.use(
   cors({
     // origin: "http://localhost:5173",
-    origin: "https://dancing-medovik-55684a.netlify.app/"
+    origin: originURL,
   })
 );
 
@@ -129,4 +130,4 @@ app.post("/api/callback", (req, res) => {
 });
 
 // Start up our server on port 5000
-app.listen(5000);
+app.listen(originURL);
