@@ -12,7 +12,7 @@ app.use(
     origin: "http://localhost:5173",
   })
 )
-// Setup Stripe 
+// Setup Stripe h
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY)
 
 app.post("/create-checkout-session", async (req, res) => {

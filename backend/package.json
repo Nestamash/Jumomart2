@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "devStart": "node index.js",
+    "devStart": "nodemon index.js",
     "start": "nodemon darajaServer.js"
   },
   "keywords": [],
