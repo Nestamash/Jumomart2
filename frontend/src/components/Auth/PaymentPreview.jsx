@@ -27,8 +27,11 @@ const PaymentPreview = () => {
     const totalAmountWithCommas = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     
     const handleMpesaPayment = ()=>{
+
+      const originURL = "https://earnest-blini-8fc48e.netlify.app/"
+
         axios
-        .post("http://localhost:5000/api/stkpush", {
+        .post(`${originURL}api/stkpush`, {
 
           phoneNumber: MpesaformatPhoneNumber(userDetails?.phoneNumber),
           amount: totalAmount, // Assuming x is the total amount
