@@ -8,11 +8,9 @@ const app = express();
 const cors = require("cors");
 app.use(express.json());
 
-const originURL = "https://earnest-blini-8fc48e.netlify.app/"
 app.use(
   cors({
-    // origin: "http://localhost:5173",
-    origin: originURL,
+    origin: "http://localhost:5173",
   })
 );
 
@@ -56,7 +54,7 @@ const password = Buffer.from(shortCode + passkey + timestamp).toString(
 );
 
 // stk push
-app.post("https://jumomart-daraja-mpesa-sever.onrender.com/api/stkpush", async (req, res) => {
+app.post("/api/stkpush", async (req, res) => {
   const { phoneNumber, amount } = req.body;
   const tillNumber = '174379';
 
@@ -130,4 +128,4 @@ app.post("/api/callback", (req, res) => {
 });
 
 // Start up our server on port 5000
-app.listen(originURL);
+app.listen(5000);
