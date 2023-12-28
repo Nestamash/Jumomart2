@@ -56,7 +56,7 @@ const password = Buffer.from(shortCode + passkey + timestamp).toString(
 );
 
 // stk push
-app.post("/api/stkpush", async (req, res) => {
+app.post("https://jumomart-daraja-mpesa-sever.onrender.com/api/stkpush", async (req, res) => {
   const { phoneNumber, amount } = req.body;
   const tillNumber = '174379';
 
