@@ -26,9 +26,11 @@ const PaymentPreview = () => {
 
     const totalAmountWithCommas = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     
+    const originURL = "https://jumomart-daraja-mpesa-sever.onrender.com"
+    
     const handleMpesaPayment = ()=>{
         axios
-        .post("http://localhost:5000/api/stkpush", {
+        .post(`${originURL}/api/stkpush`, {
 
           phoneNumber: MpesaformatPhoneNumber(userDetails?.phoneNumber),
           amount: totalAmount, // Assuming x is the total amount
