@@ -69,10 +69,12 @@ const CheckOut = () => {
           });
     }
 
+    const originURL = "https://jumomart-stripe-server.onrender.com/"
+
     const handlePaymentStripe = (items)=>{
 
       axios
-      .post("http://localhost:3000/create-checkout-session", {
+      .post(`${originURL}/create-checkout-session`, {
         items,
         
       })
