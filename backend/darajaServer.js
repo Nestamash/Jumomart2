@@ -8,9 +8,11 @@ const app = express();
 const cors = require("cors");
 app.use(express.json());
 
+const netflyURL = "https://earnest-blini-8fc48e.netlify.app"
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: netflyURL,
   })
 );
 

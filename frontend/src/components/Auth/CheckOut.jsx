@@ -69,7 +69,7 @@ const CheckOut = () => {
           });
     }
 
-    const originURL = "https://jumomart-stripe-server.onrender.com/"
+    const originURL = "https://jumomart-stripe-server.onrender.com"
 
     const handlePaymentStripe = (items)=>{
 
