@@ -8,7 +8,7 @@ const app = express();
 const cors = require("cors");
 app.use(express.json());
 
-const netflyURL = "https://jumomart-daraja-mpesa-sever.onrender.com"
+const netflyURL = "https://jumomart-daraja-mpesa-sever.onrender.com/api/stkpush"
 
 app.use(
   cors({
