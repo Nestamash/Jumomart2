@@ -20,6 +20,7 @@ import Login from './components/Auth/Login'
 import SignUp from './components/Auth/SignUp'
 import Searchedresults from './pages/searchedresults/searchedresults'
 import AsideCategory from './pages/asideCategory/asideCategory'
+import StripeSuccess from './pages/stripeSuccess/stripeSuccess'
 function App() {
   const [id, setID] = useState(null)
   const handleID = (data)=>{
@@ -52,7 +53,7 @@ function App() {
     <Route  path='/signup' element={<SignUp />}/>
     <Route  path='/search-q' element={<Searchedresults handleID={handleID} />}/>
     <Route  path='/aside-category' element={<AsideCategory handleID={handleID} />}/>
-
+    <Route  path='/success' element={<StripeSuccess />}/>
     </Routes>
     </>
   )

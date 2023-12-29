@@ -41,10 +41,9 @@ app.post("/create-checkout-session", async (req, res) => {
     })
     res.json({ url: session.url })
   } catch (e) {
-    console.error("Error creating checkout session:", e);
     res.status(500).json({ error: e.message })
   }
 })
-console.log(`server started on port 3000`);
+// console.log(`server started on port 3000`);
 // Start up our server on port 3000
 app.listen(3000)

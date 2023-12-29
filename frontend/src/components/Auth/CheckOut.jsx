@@ -88,7 +88,7 @@ const CheckOut = () => {
   }
   
 
-  console.log('user data and details: ', userDetails);
+  // console.log('user data and details: ', userDetails);
 
   return (
 
