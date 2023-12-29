@@ -8,7 +8,7 @@ const app = express();
 const cors = require("cors");
 app.use(express.json());
 
-const netflyURL = "https://earnest-blini-8fc48e.netlify.app"
+const netflyURL = "https://jumomart-daraja-mpesa-sever.onrender.com"
 
 app.use(
   cors({
