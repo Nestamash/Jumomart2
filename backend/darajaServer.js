@@ -11,6 +11,7 @@ app.use(express.json());
 
 app.use(
   cors({
+    //allow all origins using the wildcard *
     origin: '*',
   })
 );
