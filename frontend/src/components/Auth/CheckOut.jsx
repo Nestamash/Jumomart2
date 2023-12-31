@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import './style.css'
 const CheckOut = () => {
   const [userDetails, setUserDetails] = useState(null);
+  const [loading, setLoading] = useState(false);
   const cartProducts = useSelector(state=>state.cart.cart)
  
   const cartTotalAmount = cartProducts.reduce((acc, curr)=>{
@@ -72,6 +73,7 @@ const CheckOut = () => {
     const originURL = "https://jumomart-stripe-server.onrender.com"
 
     const handlePaymentStripe = (items)=>{
+      setLoading(true);
 
       axios
       .post(`${originURL}/create-checkout-session`, {
@@ -132,7 +134,9 @@ const CheckOut = () => {
               <NavLink to={'/payment-preview'} end >
               <button>Pay with Mpesa</button>
               </NavLink>
-              <button onClick={()=>handlePaymentStripe(cartProducts)}>Pay with Stripe</button>
+              <button onClick={()=>handlePaymentStripe(cartProducts)}>
+              {loading ? <div className='stripe-loader-container'>Loading...<div className='loader'></div></div> : 'Pay with Stripe'}
+                </button>
                 
               </div>
 

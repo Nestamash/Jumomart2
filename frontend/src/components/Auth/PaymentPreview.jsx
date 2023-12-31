@@ -1,17 +1,17 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import axios from "axios";
 import { useSelector } from 'react-redux'
 import { auth, db } from '../../firestore';  
 import { NavLink, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
-import { getDoc, doc } from 'firebase/firestore';
+import { getDoc, doc, collection, getDocs } from 'firebase/firestore';
 import './style.css'
 const PaymentPreview = () => {
-
   const [userDetails, setUserDetails] = useState(null);
   const [paymentMessage, setPaymentMessage] = useState(null);
   const [isPaymentMessageDisplayed, setIsPaymentMessageDisplayed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasStkCallbacksData, setHasStkCallbacksData] = useState([]);
 
     const cartProducts = useSelector(state=>state.cart.cart)
     const cartTotalAmount = cartProducts.reduce((acc, curr)=>{
@@ -26,9 +26,13 @@ const PaymentPreview = () => {
 
     const totalAmountWithCommas = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     
-    const originURL = "https://jumomart-daraja-mpesa-sever.onrender.com"
+    // const originURL = "https://jumomart-daraja-mpesa-sever.onrender.com"
+    const originURL = "http://localhost:5000"
     
+    const intervalRef = useRef(null);
+
     const handleMpesaPayment = ()=>{
+      setIsLoading(true);
         axios
         .post(`${originURL}/api/stkpush`, {
 
@@ -37,10 +41,9 @@ const PaymentPreview = () => {
                    
         })
         .then((response) => {
-          console.log(response); // Log the entire response
+          // console.log("this is the response: ", response); // Log the entire response
           if (response.data.msg) {
 
-            setIsLoading(true);
             
             // Set the payment message in state
           setPaymentMessage(response.data.msg);
@@ -50,6 +53,11 @@ const PaymentPreview = () => {
             // If no CustomerMessage, proceed with redirection
             window.location.href = response.data.url;
           }
+          
+         
+           // Initialize the interval with the first call
+           intervalRef.current = setInterval(fetchStkCallbacks, 1000);
+
         })
         .catch((err) => {
           setIsLoading(false);
@@ -58,9 +66,36 @@ const PaymentPreview = () => {
        
     }
 
-    console.log('this is phoneNumber format: ',MpesaformatPhoneNumber(userDetails?.phoneNumber))
-    console.log('amount = ', totalAmount)
+// fetch safaricom notification from firebase
+    const fetchStkCallbacks = async () => {
+      try {
+        const stkCallbacksCollection = collection(db, 'stkCallbacks');
+        const stkCallbacksSnapshot = await getDocs(stkCallbacksCollection);
+  
+        const stkCallbacksData = [];
+        stkCallbacksSnapshot.forEach((doc) => {
+          stkCallbacksData.push(doc.data());
+        });
+  
+        // Now stkCallbacksData contains an array of documents from the "stkCallbacks" collection
+        console.log('Fetched stkCallbacksData:', stkCallbacksData.length);
+        
+        if(stkCallbacksData.length > 0){
+          setHasStkCallbacksData(stkCallbacksData);
+          clearInterval(intervalRef.current);
+        }
+         // Set the state based on whether stkCallbacksData has something
+         
+          
+    
 
+        // You can set this data to state or use it as needed in your component
+      } catch (error) {
+        console.error('Error fetching stkCallbacks data:', error);
+      }
+    }; 
+    
+   
     const navigate = useNavigate()
     
           useEffect(() => {
@@ -117,7 +152,28 @@ const PaymentPreview = () => {
             return formattedNumber;
           }
 
-          console.log('user paymentprevioew: ', userDetails?.email);
+          useEffect(() => {
+            // Use the callback form to get the most up-to-date state
+            setHasStkCallbacksData((prevData) => {
+              // Iterate over the previous state
+              prevData.forEach((item) => {
+                console.log('Result Description:', item.resultDesc);
+                // Display a message to the user and enable the "Pay Now" button
+                setPaymentMessage(item.resultDesc);
+                setIsPaymentMessageDisplayed(true);
+                setIsLoading(false);
+              });
+              
+              // Return the updated state
+              return prevData;
+            });
+          }, [hasStkCallbacksData]);
+
+          
+          // hasStkCallbacksData.forEach(item => {
+          //   console.log('Result Description:', item.resultDesc);
+          // });
+
   return (
     <div className='payment-preview'>
       <div className='jumopay'>
@@ -142,19 +198,18 @@ const PaymentPreview = () => {
         </div>
 
         {isPaymentMessageDisplayed && (
-        <div className='payment-message'>
-          <p>{paymentMessage}</p>
-        </div>
+        <div className={`payment-message ${hasStkCallbacksData.length > 0 ? 'success' : 'error'}`}>
+        <p>{paymentMessage}</p>
+      </div>
       )}
 
         <div className='pay-now'>
                 <button 
                 onClick={handleMpesaPayment} 
-                disabled={isLoading || isPaymentMessageDisplayed}
-                className={isPaymentMessageDisplayed ? 'disabled-button' : ''}
+                disabled={isLoading && isPaymentMessageDisplayed}
+                className={isPaymentMessageDisplayed && isLoading ? 'disabled-button' : ''}
                 >
-                {/* {isLoading ? 'Processing...' : `Pay Now: KES ${totalAmountWithCommas}`} */}
-                
+      
                 {isLoading ? (
                   <div className='isProcessing'>
                   <p>Processing...</p>

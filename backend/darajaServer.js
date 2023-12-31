@@ -1,4 +1,8 @@
 const axios = require("axios");
+
+const { addDoc, collection, getDocs, deleteDoc } = require('firebase/firestore');
+const { firebaseapp, db } = require('./firebaseConfig');
+
 // Load environment variables from the .env file into process.env
 require("dotenv").config();
 
@@ -15,7 +19,7 @@ app.use(
     origin: '*',
   })
 );
-
+const originURL = "http://localhost:5000";
 // Generate token
 async function getAccessToken() {
   let urlauth = "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials";
@@ -59,7 +63,10 @@ const password = Buffer.from(shortCode + passkey + timestamp).toString(
 app.post("/api/stkpush", async (req, res) => {
   const { phoneNumber, amount } = req.body;
   const tillNumber = '174379';
-
+ // clear firestore before adding notification
+     // clear firestore after adding notification
+     await axios.post(`${originURL}/api/clear-stk-callbacks`);
+     
   try {
     const accessToken = await getAccessToken();
     console.log("😀 Your access token is: ", accessToken);
@@ -78,7 +85,7 @@ app.post("/api/stkpush", async (req, res) => {
         PartyA: phoneNumber,
         PartyB: tillNumber,
         PhoneNumber: phoneNumber,
-        CallBackURL: "https://348d-102-219-210-86.ngrok-free.app/api/callback",
+        CallBackURL: "https://e788-102-219-210-86.ngrok-free.app/api/callback",
         AccountReference: "Jumomart",
         TransactionDesc: "Mpesa Daraja API stk push test",
       },
@@ -89,11 +96,16 @@ app.post("/api/stkpush", async (req, res) => {
       }
     );
 
-    console.log(response);
+    // console.log(response);
     res.status(200).json({
       msg: "Mpesa pop-up has been sent to your phone ✔✔. Please enter mpesa pin to complete the transaction",
       status: true,
     });
+
+   
+    
+
+  
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -105,28 +117,60 @@ app.post("/api/stkpush", async (req, res) => {
 
 // callBack Notification
 // Handle delayed notifications from Safaricom
-app.post("/api/callback", (req, res) => {
+app.post("/api/callback", async (req, res) => {
   // Log the received notification
-  console.log("Callback Notification Received: ", req.body);
 
-  // // Extract relevant information from the notification
-  // const resultDesc = req.body.Body.stkCallback.ResultDesc;
-  // const resultCode = req.body.Body.stkCallback.ResultCode;
-  // const merchantRequestID = req.body.Body.stkCallback.MerchantRequestID;
+   console.log("STK PUSH CALLBACK");
+  const merchantRequestID = req.body.Body.stkCallback.MerchantRequestID;
+  const checkoutRequestID = req.body.Body.stkCallback.CheckoutRequestID;
+  const resultCode = req.body.Body.stkCallback.ResultCode;
+  const resultDesc = req.body.Body.stkCallback.ResultDesc;
 
-  // // Check the result code to determine the status of the transaction
-  // if (resultCode === "0") {
-  //   // Transaction was successful
-  //   console.log(`Transaction successful for MerchantRequestID: ${merchantRequestID}`);
-  //   // Update your database or perform any necessary actions for a successful transaction
-  // } else {
-  //   // Transaction failed
-  //   console.log(`Transaction failed for MerchantRequestID: ${merchantRequestID}, ResultCode: ${resultCode}, ResultDesc: ${resultDesc}`);
-  //   // Handle the failure, update your database or perform any necessary actions
-  // }
+  console.log("MerchantRequestID:", merchantRequestID);
+  console.log("CheckoutRequestID:", checkoutRequestID);
+  console.log("ResultCode:", resultCode);
+  console.log("ResultDesc:", resultDesc); 
+  
+
+   // Store ResultDesc in Firebase Firestore
+   try {
+    const resultRef = await addDoc(collection(db, "stkCallbacks"), {
+      merchantRequestID,
+      checkoutRequestID,
+      resultCode,
+      resultDesc,
+    }); 
+
+    console.log("Document written with ID: ", resultRef.id);
+
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+
 
   // Send a success response to Safaricom
-  res.sendStatus(200);
+  res.status(200).json();
+});
+
+
+
+// Clear stkCallbacks
+app.post("/api/clear-stk-callbacks", async (req, res) => {
+  try {
+    const stkCallbacksCollection = collection(db, "stkCallbacks");
+    const stkCallbacksSnapshot = await getDocs(stkCallbacksCollection);
+
+    // Delete all documents in stkCallbacks collection
+    const deletePromises = stkCallbacksSnapshot.docs.map((doc) => deleteDoc(doc.ref));
+    await Promise.all(deletePromises);
+
+    console.log("stkCallbacks collection cleared");
+
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.error("Error clearing stkCallbacks collection:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
 });
 
 // Start up our server on port 5000
