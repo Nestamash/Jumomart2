@@ -41,7 +41,57 @@
     grid-area: top1;
     background-color: $primary-color;
     padding: 0px 10px;
+
+    h1{
+      font-size: 1.5rem;
+    }
  }
+
+
+ .top-nav h1 {
+   overflow: hidden;
+   display: inline-block;
+   animation: textAnimation 1s infinite alternate, zoomAnimation 2s infinite alternate, textAndZoomAnimation 4s infinite;
+ }
+ 
+ @keyframes textAnimation {
+   0% {
+     transform: translateY(0);
+   }
+   50% {
+     transform: translateY(-5px);
+   }
+   100% {
+     transform: translateY(0);
+   }
+ }
+ 
+ @keyframes zoomAnimation {
+   0%, 100% {
+     transform: scale(1);
+   }
+   50% {
+     transform: scale(1.1);
+   }
+ }
+
+
+ @keyframes textAndZoomAnimation {
+   0%, 100% {
+     transform: translateY(0) scale(1);
+   }
+   50% {
+     transform: translateY(-5px) scale(1);
+   }
+   75% {
+     transform: translateY(-5px) scale(1.1);
+   }
+   100% {
+     transform: translateY(0) scale(1);
+   }
+ }
+
+
  .hambuger-menu{
     grid-area: hambuger;
    //  background-color: red;
@@ -416,5 +466,8 @@ span::before, span::after{
                justify-content: center;
                align-items: center;
 
+             }
+             .user-email-logout{
+               display: none;
              }
          }
