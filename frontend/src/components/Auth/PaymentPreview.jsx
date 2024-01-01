@@ -26,7 +26,7 @@ const PaymentPreview = () => {
 
     const totalAmountWithCommas = x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     
-    const originURL = "https://jumomart-daraja-mpesa-sever.onrender.com"
+     const originURL = "https://jumomart-daraja-mpesa-sever.onrender.com"
     // const originURL = "http://localhost:5000"
     
     const intervalRef = useRef(null);
