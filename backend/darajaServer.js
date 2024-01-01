@@ -85,7 +85,7 @@ app.post("/api/stkpush", async (req, res) => {
         PartyA: phoneNumber,
         PartyB: tillNumber,
         PhoneNumber: phoneNumber,
-        CallBackURL: "https://8f1a-102-219-210-86.ngrok-free.app/api/callback",
+        CallBackURL: "https://8ce1-102-219-210-86.ngrok-free.app/api/callback",
         AccountReference: "Jumomart",
         TransactionDesc: "Mpesa Daraja API stk push test",
       },
